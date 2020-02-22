@@ -1,0 +1,43 @@
+
+#ifndef MATRIX_HPP
+#define MATRIX_HPP
+#include <iostream>
+
+template <class T>
+class Matrix {
+private:
+	T **mat;
+	long int m,n; //no. of rows and columns
+public:
+	Matrix();
+	Matrix(T**, long int, long int);
+	Matrix(long int, long int); //creates an mxn zero matrix
+	Matrix(const T*, long int, long int);
+
+	void clone(const Matrix&);
+
+	Matrix<T> operator+(Matrix&);
+	Matrix<T> operator-(Matrix&);
+	Matrix<T> operator-(); //unary minus
+	Matrix<T> operator*(double); //const*mat
+	Matrix<T> operator*(Matrix&);
+//	template<class Y>
+//	friend std::istream &operator>>(std::istream &input, Matrix<T>& m2);
+//	template<class Y>
+	friend std::ostream &operator<<(std::ostream &output, const Matrix<T> &m2) {
+		output << m2.to_string();
+		return output;
+	}
+	
+	Matrix<T> rowEchelon(bool verbose=false) const;
+	void swapRow(long int, long int);
+	void toRowEchelon(bool verbose=false);
+	
+	T determinant() const;
+
+	T get(long int, long int) const; //get M(i,j)
+	std::string to_string() const;
+
+	~Matrix();
+};
+#endif
