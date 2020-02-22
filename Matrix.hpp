@@ -21,12 +21,22 @@ public:
 	Matrix<T> operator-(); //unary minus
 	Matrix<T> operator*(double); //const*mat
 	Matrix<T> operator*(Matrix&);
-//	template<class Y>
-//	friend std::istream &operator>>(std::istream &input, Matrix<T>& m2);
-//	template<class Y>
+	
 	friend std::ostream &operator<<(std::ostream &output, const Matrix<T> &m2) {
 		output << m2.to_string();
 		return output;
+	}
+	friend std::istream &operator>>(std::istream &input, Matrix<T> &m2) {
+		m2.freeMemory();
+		input >> m2.m >> m2.n;
+		m2.mat = new T*[m2.m];
+		for(long int i=0;i<m2.m;i++) {
+			m2.mat[i]=new T[m2.n];
+			for(long int j=0;j<m2.n;j++) {
+				input >> m2.mat[i][j];
+			}
+		}
+		return input;
 	}
 	
 	Matrix<T> rowEchelon(bool verbose=false) const;
@@ -38,6 +48,7 @@ public:
 	T get(long int, long int) const; //get M(i,j)
 	std::string to_string() const;
 
+	void freeMemory();
 	~Matrix();
 };
 #endif

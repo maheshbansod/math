@@ -99,23 +99,6 @@ Matrix<T> Matrix<T>::operator*(double k) {
 }
 
 template <class T>
-std::istream &operator>>(std::istream &input, Matrix<T> &m2) {
-	input >> m2.m >> m2.n;
-	for(long int i=0;i<m2.m;i++) {
-		for(long int j=0;j<m2.n;j++) {
-			input >> m2.mat[i][j];
-		}
-	}
-	return input;
-}
-
-template <class T>
-std::ostream &operator<<(std::ostream& output, const Matrix<T> &m2) {
-	output << m2.to_string();
-	return output;
-}
-
-template <class T>
 Matrix<T> Matrix<T>::operator*(Matrix<T> &m2) {
 	/**Maybe use a parallel algorithm later**/
 	Matrix<T> *res;
@@ -231,13 +214,20 @@ std::string Matrix<T>::to_string() const {
 }
 
 template <class T>
-Matrix<T>::~Matrix() {
+void Matrix<T>::freeMemory() {
+	if(m==0) return;
+
 	for(int i=0;i<m;i++) {
 		delete[] mat[i];
 	}
 	delete[] mat;
 	mat = NULL;
 	m = n = 0;
+}
+
+template <class T>
+Matrix<T>::~Matrix() {
+	freeMemory();
 }
 
 template class Matrix<int>;
