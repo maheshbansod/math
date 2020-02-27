@@ -21,6 +21,8 @@ public:
 	Matrix<T> operator-(); //unary minus
 	Matrix<T> operator*(double); //const*mat
 	Matrix<T> operator*(Matrix&);
+
+	void setAllElements(T );
 	
 	friend std::ostream &operator<<(std::ostream &output, const Matrix<T> &m2) {
 		output << m2.to_string();
@@ -38,6 +40,9 @@ public:
 		}
 		return input;
 	}
+
+	//template<class Y>
+	friend void LUDecompose(Matrix<double> &m,Matrix<double> &l, Matrix<double> &u);
 	
 	Matrix<T> rowEchelon(bool verbose=false) const;
 	void swapRow(long int, long int);

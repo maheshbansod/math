@@ -19,11 +19,16 @@ int main() {
 	Matrix<int> a(dat2, 3,3);
 
 
-	cout << "Matrix A:\n"<<m << endl;
-	cout << "Matrix B:\n"<<a.to_string() << endl;
+	cout << "Matrix A:\n"<< m << endl;
+	cout << "Matrix B:\n"<< a << endl;
 
 	cout << "Enter the matrix\n";
 	cin >> m;
+
+	Matrix<double> l(3,3), u(3,3);
+
+	LUDecompose(m,l,u);
+	cout << "LU Decomposition of m:\nL:\n"<<l<<endl<<"U:\n"<<u<<endl;
 	
 	/*cout << "A+B=\n"<<(m+a).to_string() << endl;
 	cout << "A-B=\n"<<(m-a).to_string() << endl;

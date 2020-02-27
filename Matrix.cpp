@@ -118,6 +118,38 @@ Matrix<T> Matrix<T>::operator*(Matrix<T> &m2) {
 	return *res;
 }
 
+template<class T>
+void Matrix<T>::setAllElements(T x) {
+	for(long int i=0;i<m;i++)
+		for(long int j=0;j<n;j++)
+			mat[i][j]=x;
+}
+
+void LUDecompose(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
+	/**Using Doolittle method**/
+	//assume l and u have appropriate size. all matrices square
+	l.setAllElements(0);
+	u.setAllElements(0);
+	
+	for(long int i=0;i<m.m;i++) {
+		for(long int k=i;k<m.n;k++) {
+			double sum = 0;
+			for(long int j=0;j<i;j++) {
+				sum += l.mat[i][j]*u.mat[j][k];
+			}
+			u.mat[i][k]=m.mat[i][k]-sum;
+		}
+		l.mat[i][i]=1;
+		for(long int k=i+1;k<m.n;k++) {
+			double sum;
+			for(long int j=0;j<i;j++) {
+				sum += l.mat[k][j]*u.mat[j][i];
+			}
+			l.mat[k][i]=(m.mat[k][i]-sum)/u.mat[i][i];
+		}
+	}
+}
+
 template <class T>
 Matrix<T> Matrix<T>::rowEchelon(bool verbose) const {
 	Matrix<T> *res=new Matrix<T>();
