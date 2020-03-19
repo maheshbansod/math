@@ -238,12 +238,12 @@ T Matrix<T>::get(long int i, long int j) const {
 }
 
 template <class T>
-long int Matrix<T>::getRows() {
+long int Matrix<T>::getRows() const {
 	return m;
 }
 
 template <class T>
-long int Matrix<T>::getColumns() {
+long int Matrix<T>::getColumns() const {
 	return n;
 }
 

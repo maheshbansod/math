@@ -52,8 +52,8 @@ public:
 	T determinant() const;
 
 	T get(long int, long int) const; //get M(i,j)
-	long int getRows();
-	long int getColumns();
+	long int getRows() const;
+	long int getColumns() const;
 	std::string to_string() const;
 
 	void freeMemory();

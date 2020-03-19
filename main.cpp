@@ -17,11 +17,11 @@ int main() {
 	Matrix<double> m(dat, 3,3);
 	int dat2[] = {1,0,0, 0,1,0, 0,0,1};
 	//Matrix<int> a(dat2, 3,3);
-	Matrix<double> a(m);
+	//Matrix<double> a(m);
 
 
 	cout << "Matrix A:\n"<< m << endl;
-	cout << "Matrix B:\n"<< a << endl;
+	//cout << "Matrix B:\n"<< a << endl;
 
 	/*cout << "Enter the matrix\n";
 	cin >> m;
@@ -39,7 +39,7 @@ int main() {
 	cout << "A to row echelon:\n"<<(m.rowEchelon()).to_string()<<endl;
 	cout << "A again:\n"<<m.to_string()<<endl;*/
 
-	//EquationSystem<double> eq(m);
-
+	EquationSystem<double> eq(m);
+	cout << eq;
 	return 0;
 }
