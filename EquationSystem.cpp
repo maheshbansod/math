@@ -6,7 +6,7 @@ EquationSystem<T>::EquationSystem() : Matrix<T>() {
 }
 
 template<class T>
-EquationSystem<T>::EquationSystem(Matrix<T> m) : Matrix<T>(m) {
+EquationSystem<T>::EquationSystem(const Matrix<T>& mt) : Matrix<T>(mt) {
     
 }
 

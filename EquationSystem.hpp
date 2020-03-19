@@ -7,7 +7,7 @@ template <class T>
 class EquationSystem : private Matrix<T> {
 public:
     EquationSystem();
-    EquationSystem(Matrix<T>&);
+    EquationSystem(const Matrix<T>&);
     //EquationSystem(std::string&);
     //EquationSystem(char*);
 

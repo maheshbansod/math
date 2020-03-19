@@ -45,7 +45,8 @@ Matrix<T>::Matrix(const T* dat, long int rows, long int cols) {
 
 template<class T>
 Matrix<T>::Matrix(const Matrix<T>& m2) {
-	clone(m2);
+	m = n = 0;
+	this->clone(m2);
 }
 
 template <class T>
