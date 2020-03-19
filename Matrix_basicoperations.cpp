@@ -60,6 +60,25 @@ Matrix<T> Matrix<T>::operator*(Matrix<T> &m2) {
 }
 
 template <class T>
+Matrix<T> Matrix<T>::joinMatrices(const Matrix<T> &m2) const {
+	Matrix<T> *res;
+	if(m != m2.m)
+		return Matrix<T>();
+	res = new Matrix<T>(m, n+m2.n);
+	for(long int i=0;i<m;i++) {
+		long int j;
+		for(j=0;j<n;j++) {
+			res->mat[i][j]=mat[i][j];
+		}
+		for(long int k=0;k<m2.n;k++) {
+			res->mat[i][j++] = m2.mat[i][k];
+		}
+	}
+
+	return *res;
+}
+
+template <class T>
 bool Matrix<T>::isIdentity() const {
     if(m != n)
         return false;
@@ -99,7 +118,8 @@ bool Matrix<T>::isDiagonallyDominant() const {
 }
 
 template <class T>
-int Matrix<T>::makeDiagonallyDominant(bool verbose) {
+int Matrix<T>::makeDiagonallyDominant(bool verbose, Matrix<T> *b) {
+	/* b: matrix of constants <- to swap wlwmentswhenever there's a row swap */
 	//uses naive algorithm - swaps the rows if possible
 	long int mi;
 	for(long int i=0;i<m;i++) {
@@ -124,6 +144,8 @@ int Matrix<T>::makeDiagonallyDominant(bool verbose) {
 			if(verbose)
 				std::cout << "Swapping row "<<mi+1 << " and row "<<i+1<<"\n";
 			swapRow(mi, i);
+			if(b != NULL)
+				b->swapRow(mi, i);
 		}
 	}
 	return 1;

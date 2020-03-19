@@ -9,6 +9,7 @@ class EquationSystem : public Matrix<T> {
 public:
     EquationSystem();
     EquationSystem(const Matrix<T>&);
+    EquationSystem(const Matrix<T>&, const Matrix<T>&);
     //EquationSystem(std::string&);
     //EquationSystem(char*);
 

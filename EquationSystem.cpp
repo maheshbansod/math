@@ -13,6 +13,12 @@ EquationSystem<T>::EquationSystem(const Matrix<T>& mt) : Matrix<T>(mt) {
 }
 
 template<class T>
+EquationSystem<T>::EquationSystem(const Matrix<T>& a, const Matrix<T>& b)
+    : Matrix<T>(a.joinMatrices(b)) {
+    symtab = NULL;
+}
+
+template<class T>
 std::string EquationSystem<T>::to_string() const {
     long int m = Matrix<T>::getRows();
     long int n = Matrix<T>::getColumns();

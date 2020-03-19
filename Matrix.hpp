@@ -52,7 +52,8 @@ public:
 	Matrix<T> operator-(); //unary minus
 	Matrix<T> operator*(double); //const*mat
 	Matrix<T> operator*(Matrix&);
-	int makeDiagonallyDominant(bool verbose=false);
+	Matrix<T> joinMatrices(const Matrix&) const;
+	int makeDiagonallyDominant(bool verbose=false, Matrix<T> *b=NULL);
 	bool isIdentity() const;
 	bool isSymmetric() const;
 	bool isDiagonallyDominant() const;
