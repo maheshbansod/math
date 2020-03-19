@@ -16,21 +16,27 @@ template<class T>
 std::string EquationSystem<T>::to_string() const {
     long int m = Matrix<T>::getRows();
     long int n = Matrix<T>::getColumns();
+    bool flag=false;
     if(m==0 || n==0) return std::string("<empty>");
-    //std::string str = "";
     std::ostringstream str;
     long int j;
     for(long int i=0;i<m;i++) {
+        flag = false;
         for(j=0;j<n-1;j++) {
-            if(Matrix<T>::get(i,j) != 0) {
-                str << "+";
-                if(Matrix<T>::get(i,j) != 1)
-                    str << Matrix<T>::get(i,j);
+            T coeff = Matrix<T>::get(i,j);
+            if(coeff != 0) {
+                flag = true;
+                if(coeff > 0)
+                    str << "+";
+                if(coeff != 1)
+                    str << coeff;
                 if(symtab == NULL) {
                     str << char('a'+j);
                 }
             }
         }
+        if(!flag)
+            str << "0";
         str << "=" << Matrix<T>::get(i,j) << "\n";
     }
     return str.str();
