@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Matrix.hpp"
+#include "EquationSystem.hpp"
 
 using namespace std;
 
@@ -37,6 +37,8 @@ int main() {
 	
 	cout << "A to row echelon:\n"<<(m.rowEchelon()).to_string()<<endl;
 	cout << "A again:\n"<<m.to_string()<<endl;
+
+	EquationSystem<double> eq;
 
 	return 0;
 }

@@ -13,6 +13,7 @@ public:
 	Matrix(T**, long int, long int);
 	Matrix(long int, long int); //creates an mxn zero matrix
 	Matrix(const T*, long int, long int);
+	Matrix(const Matrix&);
 
 	void clone(const Matrix&);
 

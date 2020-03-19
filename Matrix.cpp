@@ -43,6 +43,11 @@ Matrix<T>::Matrix(const T* dat, long int rows, long int cols) {
 	m = rows;n = cols;
 }
 
+template<class T>
+Matrix<T>::Matrix(const Matrix<T>& m2) {
+	clone(m2);
+}
+
 template <class T>
 void Matrix<T>::clone(const Matrix<T>& m2) {
 	if(m > 0) {
