@@ -238,6 +238,16 @@ T Matrix<T>::get(long int i, long int j) const {
 }
 
 template <class T>
+long int Matrix<T>::getRows() {
+	return m;
+}
+
+template <class T>
+long int Matrix<T>::getColumns() {
+	return n;
+}
+
+template <class T>
 std::string Matrix<T>::to_string() const {
 	std::string str="";
 	if(n==0 || m ==0) return std::string("<empty>");
