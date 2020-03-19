@@ -130,7 +130,5 @@ Matrix<T>::~Matrix() {
 	freeMemory();
 }
 
-
-
 template class Matrix<int>;
 template class Matrix<double>;

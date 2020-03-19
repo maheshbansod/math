@@ -25,8 +25,6 @@ public:
 	long int getRows() const;
 	long int getColumns() const;
 	std::string to_string() const;
-	bool isIdentity() const;
-	bool isSymmetric() const;
 
 	void freeMemory();
 	~Matrix();
@@ -54,6 +52,8 @@ public:
 	Matrix<T> operator-(); //unary minus
 	Matrix<T> operator*(double); //const*mat
 	Matrix<T> operator*(Matrix&);
+	bool isIdentity() const;
+	bool isSymmetric() const;
 
 	//matrix_functions
 	friend void LUDecompose(Matrix<double> &m,Matrix<double> &l, Matrix<double> &u);
