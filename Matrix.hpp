@@ -77,10 +77,26 @@ public:
 	 * @param i row index
 	 * @param j column index
 	 * 
+	 * @return Returns element at location (i,j) in the matrix
 	 */
-	T get(long int, long int) const;
+	T get(long int i, long int j) const;
+	/**
+	 * @brief gets number of rows of matrix
+	 * 
+	 * @return Returns number of rows of the matrix
+	 */
 	long int getRows() const;
+	/**
+	 * @brief gets number of columns of matrix
+	 * 
+	 * @return Returns number of columns of the matrix
+	 */
 	long int getColumns() const;
+	/**
+	 * @brief Creates a string which is more suitable to be displayed on the screen
+	 * 
+	 * @return Returns stringified version of the matrix
+	 */
 	std::string to_string() const;
 
 	void freeMemory();

@@ -3,3 +3,6 @@ a.out
 .vscode/
 *.o
 *.exe
+Doxyfile
+html/
+latex/
