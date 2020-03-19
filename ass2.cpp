@@ -12,6 +12,11 @@ int main() {
 	a.swapRow(0,1);
 	b.swapRow(0,1);
 
+	cout << "Coefficient matrix:\n";
+	cout << a;
+	cout << "Constant matrix:\n";
+	cout << b;
+
 	cout << "Checking if coeffecient matrix is diagonally dominant...";
 	if(a.isDiagonallyDominant())
 		cout << "yes\n";
