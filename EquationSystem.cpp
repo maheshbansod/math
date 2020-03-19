@@ -23,8 +23,9 @@ std::string EquationSystem<T>::to_string() const {
     for(long int i=0;i<m;i++) {
         for(j=0;j<n-1;j++) {
             if(Matrix<T>::get(i,j) != 0) {
+                str << "+";
                 if(Matrix<T>::get(i,j) != 1)
-                    str << "+" << Matrix<T>::get(i,j);
+                    str << Matrix<T>::get(i,j);
                 if(symtab == NULL) {
                     str << char('a'+j);
                 }
@@ -33,6 +34,13 @@ std::string EquationSystem<T>::to_string() const {
         str << "=" << Matrix<T>::get(i,j) << "\n";
     }
     return str.str();
+}
+
+template <class T>
+void EquationSystem<T>::gaussianElimination(bool verbose) {
+    //perform pivoting?
+    Matrix<T>::toRowEchelon(verbose);
+    //perform back substitution
 }
 
 template class EquationSystem<double>;

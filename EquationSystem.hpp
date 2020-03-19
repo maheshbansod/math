@@ -17,6 +17,8 @@ public:
 		return output;
 	}
 
+    void gaussianElimination(bool verbose=false);
+
     std::string to_string() const;
 };
 
