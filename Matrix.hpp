@@ -52,8 +52,10 @@ public:
 	Matrix<T> operator-(); //unary minus
 	Matrix<T> operator*(double); //const*mat
 	Matrix<T> operator*(Matrix&);
+	int makeDiagonallyDominant(bool verbose=false);
 	bool isIdentity() const;
 	bool isSymmetric() const;
+	bool isDiagonallyDominant() const;
 
 	//matrix_functions
 	friend void LUDecompose(Matrix<double> &m,Matrix<double> &l, Matrix<double> &u);

@@ -84,5 +84,50 @@ bool Matrix<T>::isSymmetric() const {
     return true;
 }
 
+template <class T>
+bool Matrix<T>::isDiagonallyDominant() const {
+	for(long int i=0;i<m;i++) {
+		T sum = 0;
+		for(long int j=0;j<n;j++) {
+			if(i != j)
+				sum+=abs(mat[i][j]);
+		}
+		if(sum > abs(mat[i][i]))
+			return false;
+	}
+	return true;
+}
+
+template <class T>
+int Matrix<T>::makeDiagonallyDominant(bool verbose) {
+	//uses naive algorithm - swaps the rows if possible
+	long int mi;
+	for(long int i=0;i<m;i++) {
+		T max = abs(mat[i][0]);
+		T sum = 0;
+		mi = 0;
+		for(long int j=1;j<n;j++) {
+			if(max < abs(mat[i][j])) {
+				sum += max;
+				max = abs(mat[i][j]);
+				mi = j;
+			} else sum+= abs(mat[i][j]);
+		}
+		if(sum > max){
+			if(verbose)
+				std::cout << "Can't make the matrix diagonally dominant :(\n";
+			return -1;
+		}
+		if(verbose)
+			std::cout << "Suitable element on row "<<i+1<< " is "<<max<<" at position "<<mi<<std::endl;
+		if(mi != i) {
+			if(verbose)
+				std::cout << "Swapping row "<<mi+1 << " and row "<<i+1<<"\n";
+			swapRow(mi, i);
+		}
+	}
+	return 1;
+}
+
 template class Matrix<int>;
 template class Matrix<double>;
