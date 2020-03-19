@@ -10,18 +10,75 @@ private:
 	long int m,n; //no. of rows and columns
 public:
 	//matrix_base
+	//constructors
 	Matrix();
-	Matrix(T**, long int, long int);
-	Matrix(long int, long int); //creates an mxn zero matrix
-	Matrix(const T*, long int, long int);
-	Matrix(const Matrix&);
+	/**
+	 * @brief Takes a 2D array of type T and creates an mxn matrix with that data.
+	 * 
+	 * @param dat the data i.e. the 2D array
+	 * @param m the number of rows of matrix
+	 * @param n the number of columns of matrix
+	 * 
+	 */
+	Matrix(T** dat, long int m, long int n);
+	/**
+	 * @brief Creates an mxn zero matrix
+	 * 
+	 * @param m the number of rows of matrix
+	 * @param n the number of columns of matrix
+	 * 
+	 */
+	Matrix(long int m, long int n);
+	/**
+	 * @brief Creates an mxn matrix using the plain array dat provided
+	 * 
+	 * @param dat the array containing data
+	 * @param m the number of rows of matrix
+	 * @param n the number of columns of matrix
+	 * 
+	 */
+	Matrix(const T* dat, long int, long int);
+	/**
+	 * @brief Copy constructor(uses the clone function)
+	 * 
+	 * @param mat Matrix to copy from
+	 * 
+	 */
+	Matrix(const Matrix& mat);
+	
+	/**
+	 * @brief Copies a matrix to the current matrix
+	 * 
+	 * @param mat Matrix to copy from
+	 * 
+	 */
+	void clone(const Matrix& mat);
 
-	void clone(const Matrix&);
+	/**
+	 * @brief Sets element at (i,j) to x
+	 * 
+	 * @param x the element to set
+	 * @param i row index
+	 * @param j column index
+	 * 
+	 */
+	void set(T x, long int i, long int j);
+	/**
+	 * @brief Sets all elements in the matrix to x
+	 * 
+	 * @param x the element to set
+	 * 
+	 */
+	void setAllElements(T x);
 
-	void set(T, long int, long int);
-	void setAllElements(T );
-
-	T get(long int, long int) const; //get M(i,j)
+	/**
+	 * @brief Getter for element (i,j) of the matrix
+	 * 
+	 * @param i row index
+	 * @param j column index
+	 * 
+	 */
+	T get(long int, long int) const;
 	long int getRows() const;
 	long int getColumns() const;
 	std::string to_string() const;
