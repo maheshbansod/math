@@ -124,6 +124,11 @@ Matrix<T> Matrix<T>::operator*(Matrix<T> &m2) {
 	return *res;
 }
 
+template <class T>
+void Matrix<T>::set(T x, long int i, long int j) {
+	mat[i][j]=x;
+}
+
 template<class T>
 void Matrix<T>::setAllElements(T x) {
 	for(long int i=0;i<m;i++)

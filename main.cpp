@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-	/*double **dat;
+	double **dat;
 	dat = new double*[3];
 	
 	for(int i=0;i<3;i++) {
@@ -14,14 +14,14 @@ int main() {
 		}
 	}
 	
-	Matrix<double> m(dat, 3,3);*/
-	double dat2[] = {1,1,1, 6, 2,1,2, 10, 3,2,1, 10};
-	Matrix<double> a(dat2, 3,4);
+	Matrix<double> m(dat, 3,3);
+	int dat2[] = {1,1,1, 6, 2,1,2, 10, 3,2,1, 10};
+	Matrix<int> a(dat2, 3,4);
 	//Matrix<double> a(m);
 
 
-	//cout << "Matrix A:\n"<< m << endl;
-	//cout << "Matrix B:\n"<< a << endl;
+	cout << "Matrix A:\n"<< m << endl;
+	cout << "Matrix B:\n"<< a << endl;
 
 	/*cout << "Enter the matrix\n";
 	cin >> m;
@@ -39,10 +39,5 @@ int main() {
 	cout << "A to row echelon:\n"<<(m.rowEchelon()).to_string()<<endl;
 	cout << "A again:\n"<<m.to_string()<<endl;*/
 
-	EquationSystem<double> eq(a);
-	cout << eq;
-	cout << "Performing gaussian elimination...\n";
-	eq.gaussianElimination();
-	cout << eq;
 	return 0;
 }

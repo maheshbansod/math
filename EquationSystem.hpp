@@ -18,6 +18,7 @@ public:
 	}
 
     void gaussianElimination(bool verbose=false);
+    int backSubstitution(bool verbose=false);
 
     std::string to_string() const;
 };

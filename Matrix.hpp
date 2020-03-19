@@ -23,6 +23,7 @@ public:
 	Matrix<T> operator*(double); //const*mat
 	Matrix<T> operator*(Matrix&);
 
+	void set(T, long int, long int);
 	void setAllElements(T );
 	
 	friend std::ostream &operator<<(std::ostream &output, const Matrix<T> &m2) {
