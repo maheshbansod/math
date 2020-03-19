@@ -59,5 +59,30 @@ Matrix<T> Matrix<T>::operator*(Matrix<T> &m2) {
 	return *res;
 }
 
+template <class T>
+bool Matrix<T>::isIdentity() const {
+    if(m != n)
+        return false;
+    for(long int i=0;i<m;i++)
+        for(long int j=0;j<n;j++)
+            if(i==j) {
+                if(mat[i][i]!=1)
+                    return false;
+            } else if(mat[i][j]!=0)
+                return false;
+    return true;
+}
+
+template <class T>
+bool Matrix<T>::isSymmetric() const {
+    if(m != n)
+        return false;
+    for(long int i=1;i<m;i++)
+        for(long int j=0;j<i;j++)
+            if(mat[i][j] != mat[j][i])
+                return false;
+    return true;
+}
+
 template class Matrix<int>;
 template class Matrix<double>;
