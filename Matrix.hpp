@@ -9,6 +9,7 @@ private:
 	T **mat;
 	long int m,n; //no. of rows and columns
 public:
+	//matrix_base
 	Matrix();
 	Matrix(T**, long int, long int);
 	Matrix(long int, long int); //creates an mxn zero matrix
@@ -17,14 +18,18 @@ public:
 
 	void clone(const Matrix&);
 
-	Matrix<T> operator+(Matrix&);
-	Matrix<T> operator-(Matrix&);
-	Matrix<T> operator-(); //unary minus
-	Matrix<T> operator*(double); //const*mat
-	Matrix<T> operator*(Matrix&);
-
 	void set(T, long int, long int);
 	void setAllElements(T );
+
+	T get(long int, long int) const; //get M(i,j)
+	long int getRows() const;
+	long int getColumns() const;
+	std::string to_string() const;
+	bool isIdentity() const;
+	bool isSymmetric() const;
+
+	void freeMemory();
+	~Matrix();
 	
 	friend std::ostream &operator<<(std::ostream &output, const Matrix<T> &m2) {
 		output << m2.to_string();
@@ -43,7 +48,14 @@ public:
 		return input;
 	}
 
-	//template<class Y>
+	//matrix_basicoperations
+	Matrix<T> operator+(Matrix&);
+	Matrix<T> operator-(Matrix&);
+	Matrix<T> operator-(); //unary minus
+	Matrix<T> operator*(double); //const*mat
+	Matrix<T> operator*(Matrix&);
+
+	//matrix_functions
 	friend void LUDecompose(Matrix<double> &m,Matrix<double> &l, Matrix<double> &u);
 	
 	Matrix<T> rowEchelon(bool verbose=false) const;
@@ -51,13 +63,5 @@ public:
 	void toRowEchelon(bool verbose=false);
 	
 	T determinant() const;
-
-	T get(long int, long int) const; //get M(i,j)
-	long int getRows() const;
-	long int getColumns() const;
-	std::string to_string() const;
-
-	void freeMemory();
-	~Matrix();
 };
 #endif
