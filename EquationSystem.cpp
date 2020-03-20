@@ -92,4 +92,61 @@ int EquationSystem<T>::backSubstitution(bool verbose) {
     return 0;
 }
 
+template <class T>
+Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
+    long int m = Matrix<T>::getRows();
+    long int n = Matrix<T>::getColumns();
+    ;
+    if(m != n-1) {
+        if(verbose)
+            std::cout << "Either the given system is inconsistent of doesn't have a unique solution.\nAborting\n";
+        return Matrix<T>();
+    }
+    if(!Matrix<T>::isDiagonallyDominant()) {
+        if(verbose)
+            std::cout << "Coefficient matrix not diagonally dominant.\nAttempting to make it diagonally dominant.\n";
+        Matrix<T>::makeDiagonallyDominant();
+    }
+    T *res = new T[m];
+    T *oldres = new T[m];
+    for(long int i=0;i<m;i++)
+        oldres[i]=0;
+    int cnt = 0;
+    while(1) {
+        cnt++;
+        if(verbose)
+            std::cout << "Iteration "<<cnt<<std::endl;
+        for(long int i=0;i<m;i++) {
+            T b = Matrix<T>::get(i, n-1);
+            T coeff = Matrix<T>::get(i,i);
+            if(coeff==0) {
+                if(verbose) std::cout << "Matrix contains zero on diagonal.\nAborting.\n";
+                return Matrix<T>();
+            }
+            if(verbose) if(symtab == NULL) std::cout << char(i+'a')<<" = ("<<b;
+            for(long int j=0;j<n;j++) {
+                if(j != i) {
+                    b-=oldres[j]*Matrix<T>::get(i,j);
+                    if(verbose)
+                        std::cout << "-"<<oldres[j]<<"x"<<Matrix<T>::get(i,j);
+                }
+            }
+            b/=coeff;
+            if(verbose)
+                std::cout << ")/"<<coeff<<" = "<<b<<std::endl;
+            res[i]=b;
+        }
+        if(cnt >= iter_limit)
+            break;
+         for(long int i=0;i<m;i++) {
+             oldres[i]=res[i];
+         }
+    }
+    if(verbose)
+        std::cout << "Solution found after "<<cnt<<" iterations"<<std::endl;
+    Matrix<T> *soln = new Matrix<T>(res, m, 1);
+    
+    return *soln;
+}
+
 template class EquationSystem<double>;
