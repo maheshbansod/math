@@ -125,15 +125,26 @@ Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
             }
             if(verbose) if(symtab == NULL) std::cout << char(i+'a')<<" = ("<<b;
             for(long int j=0;j<n-1;j++) {
+                T a = Matrix<T>::get(i,j);
                 if(j != i) {
-                    b-=oldres[j]*Matrix<T>::get(i,j);
-                    if(verbose)
-                        std::cout << "-"<<oldres[j]<<"x"<<Matrix<T>::get(i,j);
+                    b-=oldres[j]*a;
+                    if(verbose) {
+                        if(a != 0) {
+                        std::cout << "-";
+                        if(a<0) std::cout << "(";
+                        std::cout<<a;
+                        if(a<0) std::cout << ")";
+                        std::cout <<"x";
+                        if(oldres[j]<0) std::cout << "(";
+                        std::cout<<oldres[j];
+                        if(oldres[j]<0) std::cout << ")";
+                        }
+                    }
                 }
             }
             b/=coeff;
             if(verbose)
-                std::cout << ")/"<<coeff<<" = "<<b<<std::endl;
+                std::cout << ")/("<<coeff<<") = "<<b<<std::endl;
             res[i]=b;
         }
         if(cnt >= iter_limit)
