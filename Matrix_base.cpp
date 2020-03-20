@@ -1,4 +1,4 @@
-#include <string>
+#include <sstream>
 #include <iostream>
 #include "Matrix.hpp"
 
@@ -100,17 +100,16 @@ long int Matrix<T>::getColumns() const {
 
 template <class T>
 std::string Matrix<T>::to_string() const {
-    //TODO: use stringstream instead
-	std::string str="";
+	std::ostringstream str;
 	if(n==0 || m ==0) return std::string("<empty>");
 
 	for(int i=0;i<m;i++) {
 		for(int j=0;j<n;j++) {
-			str+=std::to_string(mat[i][j])+", ";
+			str<<mat[i][j]<<", ";
 		}
-		str+="\n";
+		str<<"\n";
 	}
-	return str;
+	return str.str();
 }
 
 template <class T>
