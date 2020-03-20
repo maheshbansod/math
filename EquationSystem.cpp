@@ -124,7 +124,7 @@ Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
                 return Matrix<T>();
             }
             if(verbose) if(symtab == NULL) std::cout << char(i+'a')<<" = ("<<b;
-            for(long int j=0;j<n;j++) {
+            for(long int j=0;j<n-1;j++) {
                 if(j != i) {
                     b-=oldres[j]*Matrix<T>::get(i,j);
                     if(verbose)
