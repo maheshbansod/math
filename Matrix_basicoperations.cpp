@@ -105,9 +105,13 @@ bool Matrix<T>::isSymmetric() const {
 
 template <class T>
 bool Matrix<T>::isDiagonallyDominant() const {
+
+	//this sees only the mxm part of the matrix
+	if(m > n) return false;
+
 	for(long int i=0;i<m;i++) {
 		T sum = 0;
-		for(long int j=0;j<n;j++) {
+		for(long int j=0;j<m;j++) {
 			if(i != j)
 				sum+=abs(mat[i][j]);
 		}
@@ -120,13 +124,19 @@ bool Matrix<T>::isDiagonallyDominant() const {
 template <class T>
 int Matrix<T>::makeDiagonallyDominant(bool verbose, Matrix<T> *b) {
 	/* b: matrix of constants <- to swap wlwmentswhenever there's a row swap */
+	/**Only considers the upper left square part of the matrix -> mxm ; this is useful for the EquationSystem's gaussJacobi method**/
 	//uses naive algorithm - swaps the rows if possible
 	long int mi;
+	if(m > n) {
+		if(verbose)
+			std::cout << "The matrix doesn't even contain a complete diagonal.\n";
+		return -3;
+	}
 	for(long int i=0;i<m;i++) {
 		T max = abs(mat[i][0]);
 		T sum = 0;
 		mi = 0;
-		for(long int j=1;j<n;j++) {
+		for(long int j=1;j<m;j++) {
 			if(max < abs(mat[i][j])) {
 				sum += max;
 				max = abs(mat[i][j]);
