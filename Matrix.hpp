@@ -46,7 +46,13 @@ public:
 	 * 
 	 */
 	Matrix(const Matrix& mat);
-
+	/**
+	 * @brief overloading = operator(uses the clone function)
+	 * 
+	 * @param mat Matrix to copy from
+	 * 
+	 */
+	void operator=(const Matrix& mat);
 	/**
 	 * @brief Sets element at (i,j) to x
 	 * 

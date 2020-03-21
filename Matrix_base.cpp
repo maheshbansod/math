@@ -49,6 +49,11 @@ Matrix<T>::Matrix(const Matrix<T>& m2) {
 	this->clone(m2);
 }
 
+template<class T>
+void Matrix<T>::operator=(const Matrix<T>& m2) {
+	this->clone(m2);
+}
+
 template <class T>
 void Matrix<T>::clone(const Matrix<T>& m2) {
 	if(m > 0) {
