@@ -2,6 +2,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 #include <iostream>
+#include <fstream>
 
 template <class T>
 class Matrix {
@@ -139,6 +140,26 @@ public:
 			}
 		}
 		return input;
+	}
+	/**
+	 * @brief overloads >> operator for file input stream(taking input from a file)
+	 * 
+	 * @param fin Input stream which is the left operand
+	 * @param m2 Matrix which would store the input
+	 * 
+	 * @return Returns a file input stream
+	 */
+	friend std::ifstream &operator>>(std::ifstream &fin, Matrix<T> &m2) {
+		m2.freeMemory();
+		fin >> m2.m >> m2.n;
+		m2.mat = new T*[m2.m];
+		for(long int i=0;i<m2.m;i++) {
+			m2.mat[i]=new T[m2.n];
+			for(long int j=0;j<m2.n;j++) {
+				fin >> m2.mat[i][j];
+			}
+		}
+		return fin;
 	}
 
 	//matrix_basicoperations
