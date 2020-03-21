@@ -15,7 +15,7 @@ public:
 	/**
 	 * @brief Takes a 2D array of type T and creates an mxn matrix with that data.
 	 * 
-	 * @param dat the data i.e. the 2D array
+	 * @param T** the data i.e. the 2D array
 	 * @param m the number of rows of matrix
 	 * @param n the number of columns of matrix
 	 * 
@@ -45,14 +45,6 @@ public:
 	 * 
 	 */
 	Matrix(const Matrix& mat);
-	
-	/**
-	 * @brief Copies a matrix to the current matrix
-	 * 
-	 * @param mat Matrix to copy from
-	 * 
-	 */
-	void clone(const Matrix& mat);
 
 	/**
 	 * @brief Sets element at (i,j) to x
@@ -98,14 +90,44 @@ public:
 	 * @return Returns stringified version of the matrix
 	 */
 	std::string to_string() const;
-
-	void freeMemory();
+	/**
+	 * @brief Destructor
+	 */
 	~Matrix();
-	
+private:
+	/**
+	 * @brief Copies a matrix to the current matrix
+	 * 
+	 * @param mat Matrix to copy from
+	 * 
+	 */
+	void clone(const Matrix& mat);
+	/**
+	 * @brief frees the memory allocated by matrix and resets the matrix
+	*/
+	void freeMemory();
+
+public:
+	/**
+	 * @brief overloads << operator for output
+	 * 
+	 * @param output Output stream which is the left operand of `<<`
+	 * @param m2     Matrix to output
+	 * 
+	 * @return Returns the stream with the stringified version of the matrix.
+	 */
 	friend std::ostream &operator<<(std::ostream &output, const Matrix<T> &m2) {
 		output << m2.to_string();
 		return output;
 	}
+	/**
+	 * @brief overloads >> operator for input
+	 * 
+	 * @param input Input stream which is the left operand
+	 * @param m2 Matrix which would store the input
+	 * 
+	 * @return Returns an input stream
+	 */
 	friend std::istream &operator>>(std::istream &input, Matrix<T> &m2) {
 		m2.freeMemory();
 		input >> m2.m >> m2.n;
