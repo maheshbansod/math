@@ -86,8 +86,14 @@ void Matrix<T>::toRowEchelon(bool verbose) {
 template <class T>
 T Matrix<T>::determinant() const {
 	/**Change code later for determining determinant for matrix size n **/
+	if(m == 0) {
+		//throw exception
+		std::cout << "empty matrix.\n";
+		return -1;
+	}
 	if(m != n || n>3) {
 		//throw Exception
+		std::cout << "Check matrix dimensions. Can't find determinant of a non square matrix.\n";
 		return -1;
 	}
 	if(n==1) return mat[0][0];
