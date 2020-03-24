@@ -96,16 +96,11 @@ template <class T>
 Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
     long int m = Matrix<T>::getRows();
     long int n = Matrix<T>::getColumns();
-    ;
+    /**it is assumed that the coefficient matrix is already diagonally dominant**/
     if(m != n-1) {
         if(verbose)
             std::cout << "Either the given system is inconsistent of doesn't have a unique solution.\nAborting\n";
         return Matrix<T>();
-    }
-    if(!Matrix<T>::isDiagonallyDominant()) {
-        if(verbose)
-            std::cout << "Coefficient matrix not diagonally dominant.\nAttempting to make it diagonally dominant.\n";
-        Matrix<T>::makeDiagonallyDominant();
     }
     T *res = new T[m];
     T *oldres = new T[m];

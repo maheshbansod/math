@@ -123,9 +123,7 @@ bool Matrix<T>::isDiagonallyDominant() const {
 
 template <class T>
 int Matrix<T>::makeDiagonallyDominant(bool verbose, Matrix<T> *b) {
-	/* b: matrix of constants <- to swap wlwmentswhenever there's a row swap */
-	/**Only considers the upper left square part of the matrix -> mxm ; this is useful for the EquationSystem's gaussJacobi method**/
-	//uses naive algorithm - swaps the rows if possible
+	/* b: matrix of constants <- to swap elements whenever there's a row swap */
 	long int mi;
 	if(m > n) {
 		if(verbose)

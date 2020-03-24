@@ -62,11 +62,11 @@ void test3() {
 
     if(verbose)
 	    cout << "Checking if coeffecient matrix is diagonally dominant...";
-	if(a.isDiagonallyDominant())
+	if(a.isDiagonallyDominant()) {
 		if(verbose)  cout << "yes\n";
-	else {
+	} else {
 		if(verbose) cout << "no\nAttempting to make it diagonally dominant...\n";
-		a.makeDiagonallyDominant(false, &b);
+		a.makeDiagonallyDominant(verbose, &b);
 		if(verbose) cout << a;
 	}
 
