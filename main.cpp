@@ -79,7 +79,7 @@ void test3() {
 
     cout << "-----\nSolution set:\n"<<solution<<"-----\n";
 	if(!a.isDiagonallyDominant()) {
-		cout << "The above solution maybe incorrect as the given coefficient was unable to be made diagonally dominant.\n";
+		cout << "The above solution maybe incorrect as the given coefficient matrix was unable to be made diagonally dominant.\n";
 	}
 
     if (verbose)
