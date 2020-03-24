@@ -78,6 +78,9 @@ void test3() {
     Matrix<double> solution = es.gaussJacobi(verbose);
 
     cout << "-----\nSolution set:\n"<<solution<<"-----\n";
+	if(!a.isDiagonallyDominant()) {
+		cout << "The above solution maybe incorrect as the given coefficient was unable to be made diagonally dominant.\n";
+	}
 
     if (verbose)
         std::cout << "Set the verbose variable to false in the source code to disable detailed output.\n";
