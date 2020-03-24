@@ -7,6 +7,7 @@ using namespace std;
 
 void test1();
 void test2();
+void test3();
 void displayUsage(const char*);
 
 int main(int argc, char **argv) {
