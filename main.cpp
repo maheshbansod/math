@@ -33,39 +33,51 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void test1() {
-    ifstream fin1, fin2;
-	std::string str;
-
-	cout << "Enter filename for input for matrix A: ";
-	cin >> str;
-	fin1.open(str);
-	Matrix<double> m;
-	fin1 >> m;
-	cout << "Enter filename for input for matrix B: ";
-	cin >> str;
-	fin2.open(str);
+void test3() {
 	Matrix<double> a;
-	fin2 >> a;
+	Matrix<double> b;
 
-	cout << "Matrix A:\n" << m << endl;
-	cout << "Matrix B:\n" << a << endl;
-	
-	Matrix<double> c;
-	c = m+a;
-	if(c.getRows() == 0) cout << "error while performing addition.\n";
-	else cout << "A+B=\n"<< c << endl;
-	c = m-a;
-	if(c.getRows() == 0) cout << "error while performing subtraction.\n";
-	else cout << "A-B=\n"<< c << endl;
-	c = m*a;
-	if(c.getRows() == 0) cout << "error while performing multiplication.\n";
-	else cout << "A*B=\n"<< c << endl;
-	
-	cout << "det(A)="<< m.determinant()<< "\ndet(B)="<<a.determinant()<<endl;
+    bool verbose = true; /**make this to false to disable detailed output**/
 
-	cout << "is A identity? " << std::boolalpha << m.isIdentity() << endl;
-	cout << "is A symmetric? " << m.isSymmetric() << endl;
+	std::string fname;
+    if(verbose)
+	    cout << "File containing a matrix should be as follows:\n<number of rows> <number of columns>\n<elements>\n(See example matrices testmat1.matrix and testmat2.matrix)\n";
+	cout << "Enter file name for coefficient matrix: ";
+	cin >> fname;
+	ifstream f1(fname);
+	f1 >> a;
+	cout << "Enter file name for matrix of constants: ";
+	cin >> fname;
+	ifstream f2(fname);
+	f2 >> b;
+
+	cout << "Coefficient matrix:\n";
+	cout << a;
+	cout << "Constant matrix:\n";
+	cout << b;
+
+    if(verbose)
+	    cout << "Checking if coeffecient matrix is diagonally dominant...";
+	if(a.isDiagonallyDominant())
+		if(verbose)  cout << "yes\n";
+	else {
+		if(verbose) cout << "no\nAttempting to make it diagonally dominant...\n";
+		a.makeDiagonallyDominant(false, &b);
+		if(verbose) cout << a;
+	}
+
+    EquationSystem<double> es(a, b);
+
+    cout << "The given system is:\n"<<es;
+    
+    cout << "Performing GaussJacobi.\n";
+    Matrix<double> solution = es.gaussJacobi(verbose);
+
+    cout << "-----\nSolution set:\n"<<solution<<"-----\n";
+
+    if (verbose)
+        std::cout << "Set the verbose variable to false in the source code to disable detailed output.\n";
+
 }
 
 void test2() {
@@ -106,6 +118,41 @@ void test2() {
     cout << "Attempting to back substitute...\n";
     eq.backSubstitution(true);
 	cout << eq;
+}
+
+void test1() {
+    ifstream fin1, fin2;
+	std::string str;
+
+	cout << "Enter filename for input for matrix A: ";
+	cin >> str;
+	fin1.open(str);
+	Matrix<double> m;
+	fin1 >> m;
+	cout << "Enter filename for input for matrix B: ";
+	cin >> str;
+	fin2.open(str);
+	Matrix<double> a;
+	fin2 >> a;
+
+	cout << "Matrix A:\n" << m << endl;
+	cout << "Matrix B:\n" << a << endl;
+	
+	Matrix<double> c;
+	c = m+a;
+	if(c.getRows() == 0) cout << "error while performing addition.\n";
+	else cout << "A+B=\n"<< c << endl;
+	c = m-a;
+	if(c.getRows() == 0) cout << "error while performing subtraction.\n";
+	else cout << "A-B=\n"<< c << endl;
+	c = m*a;
+	if(c.getRows() == 0) cout << "error while performing multiplication.\n";
+	else cout << "A*B=\n"<< c << endl;
+	
+	cout << "det(A)="<< m.determinant()<< "\ndet(B)="<<a.determinant()<<endl;
+
+	cout << "is A identity? " << std::boolalpha << m.isIdentity() << endl;
+	cout << "is A symmetric? " << m.isSymmetric() << endl;
 }
 
 void displayUsage(const char *pname) {
