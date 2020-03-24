@@ -26,6 +26,9 @@ int main(int argc, char **argv) {
     case 2:
         test2();
         break;
+	case 3:
+		test3();
+		break;
     default:
         displayUsage(argv[0]);
         return -1;
@@ -159,4 +162,5 @@ void displayUsage(const char *pname) {
     cout << "Usage: "<<pname<< " testnumber"<<endl;
     cout << "\twhere test number can be\n\t\t1: addition, multiplication, subtraction, determinant, is the matrix symmetric, is the matrix identity.\n";
     cout << "\t\t2: diagonally dominant and gaussian elimination\n";
+	cout << "\t\t3: gauss jacobi method\n";
 }
