@@ -1,6 +1,7 @@
 
 #include "EquationSystem.hpp"
 #include <sstream>
+#include <cmath>
 
 template<class T>
 EquationSystem<T>::EquationSystem() : Matrix<T>() {
@@ -92,6 +93,9 @@ int EquationSystem<T>::backSubstitution(bool verbose) {
     return 0;
 }
 
+
+const double tol = 0.00001; //tolerance
+
 template <class T>
 Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
     long int m = Matrix<T>::getRows();
@@ -107,7 +111,9 @@ Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
     for(long int i=0;i<m;i++)
         oldres[i]=0;
     int cnt = 0;
-    while(1) {
+    bool done = false;
+    while(!done) {
+        done = true;
         cnt++;
         if(verbose)
             std::cout << "Iteration "<<cnt<<std::endl;
@@ -140,9 +146,14 @@ Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
             b/=coeff;
             if(verbose)
                 std::cout << ")/("<<coeff<<") = "<<b<<std::endl;
+            //std::cout << "b="<<b<<"res[i]="<<res[i]<<","<<(fabs(b-res[i]))<<std::endl;
+            if(fabs(b-res[i]) > tol) {
+            //    std::cout << b << ","<<res[i]<<","<<abs(b-res[i])<<std::endl;
+                done = false;
+            }
             res[i]=b;
         }
-        if(cnt >= iter_limit)
+        if(cnt >= iter_limit || done)
             break;
          for(long int i=0;i<m;i++) {
              oldres[i]=res[i];
@@ -169,7 +180,9 @@ Matrix<T> EquationSystem<T>::gaussSeidel(bool verbose, const int iter_limit) {
     for(long int i=0;i<m;i++)
         res[i]=0;
     int cnt = 0;
-    while(1) {
+    bool done = false;
+    while(!done) {
+        done = true;
         cnt++;
         if(verbose)
             std::cout << "Iteration "<<cnt<<std::endl;
@@ -202,6 +215,9 @@ Matrix<T> EquationSystem<T>::gaussSeidel(bool verbose, const int iter_limit) {
             b/=coeff;
             if(verbose)
                 std::cout << ")/("<<coeff<<") = "<<b<<std::endl;
+            if(fabs(b-res[i]) > tol) {
+                done = false;
+            }
             res[i]=b;
         }
         if(cnt >= iter_limit)
