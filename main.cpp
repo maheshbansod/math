@@ -67,6 +67,10 @@ void test3() {
 	} else {
 		if(verbose) cout << "no\nAttempting to make it diagonally dominant...\n";
 		a.makeDiagonallyDominant(verbose, &b);
+		if(!a.isDiagonallyDominant()) {
+			cout << "Couldn't make the matrix diagonally dominant. Exiting\n";
+			return;
+		}
 		if(verbose) cout << a;
 	}
 
