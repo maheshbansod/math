@@ -155,4 +155,63 @@ Matrix<T> EquationSystem<T>::gaussJacobi(bool verbose, const int iter_limit) {
     return *soln;
 }
 
+template <class T>
+Matrix<T> EquationSystem<T>::gaussSeidel(bool verbose, const int iter_limit) {
+    long int m = Matrix<T>::getRows();
+    long int n = Matrix<T>::getColumns();
+    /**it is assumed that the coefficient matrix is already diagonally dominant**/
+    if(m != n-1) {
+        if(verbose)
+            std::cout << "Either the given system is inconsistent of doesn't have a unique solution.\nAborting\n";
+        return Matrix<T>();
+    }
+    T *res = new T[m];
+    for(long int i=0;i<m;i++)
+        res[i]=0;
+    int cnt = 0;
+    while(1) {
+        cnt++;
+        if(verbose)
+            std::cout << "Iteration "<<cnt<<std::endl;
+        for(long int i=0;i<m;i++) {
+            T b = Matrix<T>::get(i, n-1);
+            T coeff = Matrix<T>::get(i,i);
+            if(coeff==0) {
+                if(verbose) std::cout << "Matrix contains zero on diagonal.\nAborting.\n";
+                return Matrix<T>();
+            }
+            if(verbose) if(symtab == NULL) std::cout << char(i+'a')<<" = ("<<b;
+            for(long int j=0;j<n-1;j++) {
+                T a = Matrix<T>::get(i,j);
+                if(j != i) {
+                    b-=res[j]*a;
+                    if(verbose) {
+                        if(a != 0) {
+                        std::cout << "-";
+                        if(a<0) std::cout << "(";
+                        std::cout<<a;
+                        if(a<0) std::cout << ")";
+                        std::cout <<"x";
+                        if(res[j]<0) std::cout << "(";
+                        std::cout<<res[j];
+                        if(res[j]<0) std::cout << ")";
+                        }
+                    }
+                }
+            }
+            b/=coeff;
+            if(verbose)
+                std::cout << ")/("<<coeff<<") = "<<b<<std::endl;
+            res[i]=b;
+        }
+        if(cnt >= iter_limit)
+            break;
+    }
+    if(verbose)
+        std::cout << "Solution found after "<<cnt<<" iterations"<<std::endl;
+    Matrix<T> *soln = new Matrix<T>(res, m, 1);
+    
+    return *soln;
+}
+
 template class EquationSystem<double>;

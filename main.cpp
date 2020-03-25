@@ -8,6 +8,7 @@ using namespace std;
 void test1();
 void test2();
 void test3();
+void test4();
 void displayUsage(const char*);
 
 int main(int argc, char **argv) {
@@ -30,11 +31,65 @@ int main(int argc, char **argv) {
 	case 3:
 		test3();
 		break;
+	case 4:
+		test4();
+		break;
     default:
         displayUsage(argv[0]);
         return -1;
     }
     return 0;
+}
+
+void test4() {
+	Matrix<double> a;
+	Matrix<double> b;
+
+    bool verbose = true; /**make this to false to disable detailed output**/
+
+	std::string fname;
+    if(verbose)
+	    cout << "File containing a matrix should be as follows:\n<number of rows> <number of columns>\n<elements>\n(See example matrices testmat1.matrix and testmat2.matrix)\n";
+	cout << "Enter file name for coefficient matrix: ";
+	cin >> fname;
+	ifstream f1(fname);
+	f1 >> a;
+	cout << "Enter file name for matrix of constants: ";
+	cin >> fname;
+	ifstream f2(fname);
+	f2 >> b;
+
+	cout << "Coefficient matrix:\n";
+	cout << a;
+	cout << "Constant matrix:\n";
+	cout << b;
+
+    if(verbose)
+	    cout << "Checking if coeffecient matrix is diagonally dominant...";
+	if(a.isDiagonallyDominant()) {
+		if(verbose)  cout << "yes\n";
+	} else {
+		if(verbose) cout << "no\nAttempting to make it diagonally dominant...\n";
+		a.makeDiagonallyDominant(verbose, &b);
+		if(!a.isDiagonallyDominant()) {
+			cout << "Couldn't make the matrix diagonally dominant. Exiting\n";
+			return;
+		}
+		if(verbose) cout << a;
+	}
+
+    EquationSystem<double> es(a, b);
+
+    cout << "The given system is:\n"<<es;
+    
+    cout << "Performing GaussSeidel.\n";
+    Matrix<double> solution = es.gaussSeidel(verbose);
+
+    cout << "-----\nSolution set:\n"<<solution<<"-----\n";
+
+    if (verbose)
+        std::cout << "Set the verbose variable to false in the source code to disable detailed output.\n";
+
 }
 
 void test3() {
@@ -82,9 +137,6 @@ void test3() {
     Matrix<double> solution = es.gaussJacobi(verbose);
 
     cout << "-----\nSolution set:\n"<<solution<<"-----\n";
-	if(!a.isDiagonallyDominant()) {
-		cout << "The above solution maybe incorrect as the given coefficient matrix was unable to be made diagonally dominant.\n";
-	}
 
     if (verbose)
         std::cout << "Set the verbose variable to false in the source code to disable detailed output.\n";
@@ -171,4 +223,5 @@ void displayUsage(const char *pname) {
     cout << "\twhere test number can be\n\t\t1: addition, multiplication, subtraction, determinant, is the matrix symmetric, is the matrix identity.\n";
     cout << "\t\t2: diagonally dominant and gaussian elimination\n";
 	cout << "\t\t3: gauss jacobi method\n";
+	cout << "\t\t4: gauss seidel root finding method and cholesky method for matrix decomposition\n";
 }

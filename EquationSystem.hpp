@@ -29,6 +29,7 @@ public:
      * @return Matrix<T> Returns a matrix of size mx1 containing the solution of the system
      */
     Matrix<T> gaussJacobi(bool verbose=false, const int iter_limit=25);
+    Matrix<T> gaussSeidel(bool verbose=false, const int iter_limit=25);
 
     std::string to_string() const;
 };
