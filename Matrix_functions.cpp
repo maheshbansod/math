@@ -1,6 +1,6 @@
 #include "Matrix.hpp"
 
-void LUDecompose(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
+void LUDecompose_doolittle(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
 	/**Using Doolittle method**/
 	//assume l and u have appropriate size. all matrices square
 	l.setAllElements(0);
