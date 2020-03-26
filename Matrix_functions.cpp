@@ -1,4 +1,5 @@
 #include "Matrix.hpp"
+#include <cmath>
 
 void LUDecompose_doolittle(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
 	/**Using Doolittle method**/
@@ -21,6 +22,30 @@ void LUDecompose_doolittle(Matrix<double> &m, Matrix<double> &l, Matrix<double> 
 				sum += l.mat[k][j]*u.mat[j][i];
 			}
 			l.mat[k][i]=(m.mat[k][i]-sum)/u.mat[i][i];
+		}
+	}
+}
+
+void LUDecompose_cholesky(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
+	/***requires matrix to be symmetric. gives two matrices l and u where u = l transpose*/
+	if(!m.isSymmetric()){
+		return;
+	}
+	l.setAllElements(0);
+	u.setAllElements(0);
+
+	for(long int i=0;i<m.n;i++) {
+		double sum = 0;
+		for(long int j=0;j<i;j++) {
+			sum += l.mat[i][j]*l.mat[i][j];
+		}
+		l.mat[i][i]=u.mat[i][i]=sqrt(m.mat[i][i]-sum);
+		for(long int j=i+1;j<m.m;j++) {
+			sum = 0;
+			for(long int k=0;k<i;k++) {
+				sum += l.mat[i][k]*l.mat[j][k];
+			}
+			l.mat[j][i] = u.mat[i][j] = (m.mat[i][j]-sum)/l.mat[i][i];
 		}
 	}
 }
