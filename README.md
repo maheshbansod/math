@@ -5,14 +5,15 @@ It contains the Matrix library containing different matrix functions.
 EDIT THIS FILE TO CONTAIN MORE INFO ON THIS REPO
 
 ## Compiling and running tests
-For compiling assignment 1:  
-```$ make ass1.exe```
+For compiling:  
+```$ make main```
 ## Execution
-```$ ./ass1```
+```$ ./main n```
+for nth assignment/test
 
 ## Example output
-```$ make ass1.exe
-$ ./ass1.exe 
+```$ make main
+$ ./main 1 
 Matrix B:
 1.000000, 1.000000, 1.000000, 
 6.000000, 1.000000, 2.000000, 
