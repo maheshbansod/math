@@ -1,51 +1,53 @@
 #include "Matrix.hpp"
 #include <cmath>
 
-void LUDecompose_doolittle(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
+template <class T>
+void Matrix<T>::luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const {
 	/**Using Doolittle method**/
 	//assume l and u have appropriate size. all matrices square
 	l.setAllElements(0);
 	u.setAllElements(0);
 	
-	for(long int i=0;i<m.m;i++) {
-		for(long int k=i;k<m.n;k++) {
+	for(long int i=0;i<m;i++) {
+		for(long int k=i;k<n;k++) {
 			double sum = 0;
 			for(long int j=0;j<i;j++) {
 				sum += l.mat[i][j]*u.mat[j][k];
 			}
-			u.mat[i][k]=m.mat[i][k]-sum;
+			u.mat[i][k]=mat[i][k]-sum;
 		}
 		l.mat[i][i]=1;
-		for(long int k=i+1;k<m.n;k++) {
+		for(long int k=i+1;k<n;k++) {
 			double sum;
 			for(long int j=0;j<i;j++) {
 				sum += l.mat[k][j]*u.mat[j][i];
 			}
-			l.mat[k][i]=(m.mat[k][i]-sum)/u.mat[i][i];
+			l.mat[k][i]=(mat[k][i]-sum)/u.mat[i][i];
 		}
 	}
 }
 
-void LUDecompose_cholesky(Matrix<double> &m, Matrix<double> &l, Matrix<double> &u) {
+template<class T>
+void Matrix<T>::luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const {
 	/***requires matrix to be symmetric. gives two matrices l and u where u = l transpose*/
-	if(!m.isSymmetric()){
+	if(!(*this).isSymmetric()){
 		return;
 	}
 	l.setAllElements(0);
 	u.setAllElements(0);
 
-	for(long int i=0;i<m.n;i++) {
+	for(long int i=0;i<n;i++) {
 		double sum = 0;
 		for(long int j=0;j<i;j++) {
 			sum += l.mat[i][j]*l.mat[i][j];
 		}
-		l.mat[i][i]=u.mat[i][i]=sqrt(m.mat[i][i]-sum);
-		for(long int j=i+1;j<m.m;j++) {
+		l.mat[i][i]=u.mat[i][i]=sqrt(mat[i][i]-sum);
+		for(long int j=i+1;j<m;j++) {
 			sum = 0;
 			for(long int k=0;k<i;k++) {
 				sum += l.mat[i][k]*l.mat[j][k];
 			}
-			l.mat[j][i] = u.mat[i][j] = (m.mat[i][j]-sum)/l.mat[i][i];
+			l.mat[j][i] = u.mat[i][j] = (mat[i][j]-sum)/l.mat[i][i];
 		}
 	}
 }

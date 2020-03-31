@@ -111,7 +111,7 @@ void test4() {
 		Matrix<double> l(a.getRows(),a.getRows());
 		Matrix<double> u(a.getRows(), a.getRows());
 		cout << "Performing matrix decomposition.\n";
-		LUDecompose_cholesky(a, l, u);
+		a.luDecompose_cholesky(l, u);
 		cout << "A=LU (U = transpose(L))\nL = \n"<<l;
 		cout << "U=\n"<<u;
 	}
