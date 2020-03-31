@@ -2,7 +2,7 @@
 #include <cmath>
 
 template <class T>
-void Matrix<T>::luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const {
+int Matrix<T>::luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const {
 	/**Using Doolittle method**/
 	//assume l and u have appropriate size. all matrices square
 	l.setAllElements(0);
@@ -16,6 +16,8 @@ void Matrix<T>::luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const {
 			}
 			u.mat[i][k]=mat[i][k]-sum;
 		}
+		if(u.mat[i][i] == 0)
+			return 0;
 		l.mat[i][i]=1;
 		for(long int k=i+1;k<n;k++) {
 			double sum=0;
@@ -25,10 +27,11 @@ void Matrix<T>::luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const {
 			l.mat[k][i]=(mat[k][i]-sum)/u.mat[i][i];
 		}
 	}
+	return 1;
 }
 
 template <class T>
-void Matrix<T>::luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const {
+int Matrix<T>::luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const {
 	l.setAllElements(0);
 	u.setAllElements(0);
 
@@ -40,6 +43,8 @@ void Matrix<T>::luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const {
 			}
 			l.mat[i][j] = mat[i][j]-sum;
 		}
+		if(l.mat[i][i] == 0)
+			return 0;
 		u.mat[i][i]=1;
 		for(long int j=i+1;j<n;j++) {
 			double sum = 0;
@@ -49,13 +54,14 @@ void Matrix<T>::luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const {
 			u.mat[i][j] = (mat[i][j]-sum)/l.mat[i][i];
 		}
 	}
+	return 1;
 }
 
 template<class T>
-void Matrix<T>::luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const {
+int Matrix<T>::luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const {
 	/***requires matrix to be symmetric. gives two matrices l and u where u = l transpose*/
 	if(!(*this).isSymmetric()){
-		return;
+		return 0;
 	}
 	l.setAllElements(0);
 	u.setAllElements(0);
@@ -74,6 +80,7 @@ void Matrix<T>::luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const {
 			l.mat[j][i] = u.mat[i][j] = (mat[i][j]-sum)/l.mat[i][i];
 		}
 	}
+	return 1;
 }
 
 template <class T>

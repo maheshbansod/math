@@ -68,7 +68,10 @@ void test5() {
 	Matrix<double> u(a.getRows(), a.getRows());
 	cout << "A = LU\n";
 	cout << "Using doolittle's method.\n";
-	a.luDecompose_doolittle(l, u);
+	if(!a.luDecompose_doolittle(l, u)) {
+		cout << "ERROR: couldn't decompos matrix.\nDeterminant of the matrix is prolly close to 0\n";
+		return;
+	}
 	cout <<"Matrix L:\n"<< l;
 	cout <<"Matrix U:\n"<< u;
 	cout <<"LxU:\n"<< l*u;
@@ -149,9 +152,13 @@ void test4() {
 		Matrix<double> l(a.getRows(),a.getRows());
 		Matrix<double> u(a.getRows(), a.getRows());
 		cout << "Performing matrix decomposition.\n";
-		a.luDecompose_cholesky(l, u);
+		if(!a.luDecompose_cholesky(l, u)) {
+			cout << "ERROR: couldn't perform decomposition.\nDeterminant is prolly close to 0\n";
+			return;
+		}
 		cout << "A=LU (U = transpose(L))\nL = \n"<<l;
 		cout << "U=\n"<<u;
+		cout << "LxU = \n" << l*u;
 	}
 }
 

@@ -185,9 +185,9 @@ public:
 	bool isDiagonallyDominant() const;
 
 	//matrix_functions
-	void luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const;
-	void luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const;
-	void luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const;
+	int luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const;
+	int luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const;
+	int luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const;
 	
 	Matrix<T> rowEchelon(bool verbose=false) const;
 	void swapRow(long int, long int);
