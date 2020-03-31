@@ -8,11 +8,11 @@ Include the file "Matrix.hpp" for matrix functions and "EquationSystem.hpp" for 
 For compiling:  
 ```$ make main```
 ## Execution
-```$ ./main n```
-for nth test
-Test 1: addition, subtraction, multiplication, determinant, symmetric, identity.
-Test 2: diagonally dominant and gaussian elimination
-Test 3: gauss jacobi method
-Test 4: gauss seidel method and cholesky method
-Test 5: doolittle's method and crout's method for matrix decomposition
+```$ ./main n```  
+for nth test  
+Test 1: addition, subtraction, multiplication, determinant, symmetric, identity.  
+Test 2: diagonally dominant and gaussian elimination  
+Test 3: gauss jacobi method  
+Test 4: gauss seidel method and cholesky method  
+Test 5: doolittle's method and crout's method for matrix decomposition  
 
