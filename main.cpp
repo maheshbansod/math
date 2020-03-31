@@ -3,6 +3,10 @@
 #include "Matrix.hpp"
 #include "EquationSystem.hpp"
 
+#ifndef VERBOSE
+#define VERBOSE false
+#endif
+
 using namespace std;
 
 void test1();
@@ -48,7 +52,7 @@ int main(int argc, char **argv) {
 void test5() {
 	Matrix<double> a;
 
-    bool verbose = false; /**make this to false to disable detailed output**/
+    bool verbose = VERBOSE; /**make this to false to disable detailed output**/
 
 	string fname;
     if(verbose)
@@ -86,7 +90,7 @@ void test4() {
 	Matrix<double> a;
 	Matrix<double> b;
 
-    bool verbose = false; /**make this to false to disable detailed output**/
+    bool verbose = VERBOSE; /**make this to false to disable detailed output**/
 
 	string fname;
     if(verbose)
@@ -166,7 +170,7 @@ void test3() {
 	Matrix<double> a;
 	Matrix<double> b;
 
-    bool verbose = false; /**make this to false to disable detailed output**/
+    bool verbose = VERBOSE; /**make this to false to disable detailed output**/
 
 	std::string fname;
     if(verbose)
