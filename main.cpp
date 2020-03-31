@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
 void test5() {
 	Matrix<double> a;
 
-    bool verbose = true; /**make this to false to disable detailed output**/
+    bool verbose = false; /**make this to false to disable detailed output**/
 
 	string fname;
     if(verbose)
@@ -86,7 +86,7 @@ void test4() {
 	Matrix<double> a;
 	Matrix<double> b;
 
-    bool verbose = true; /**make this to false to disable detailed output**/
+    bool verbose = false; /**make this to false to disable detailed output**/
 
 	string fname;
     if(verbose)
@@ -166,7 +166,7 @@ void test3() {
 	Matrix<double> a;
 	Matrix<double> b;
 
-    bool verbose = true; /**make this to false to disable detailed output**/
+    bool verbose = false; /**make this to false to disable detailed output**/
 
 	std::string fname;
     if(verbose)
