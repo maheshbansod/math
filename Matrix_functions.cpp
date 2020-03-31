@@ -18,11 +18,35 @@ void Matrix<T>::luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const {
 		}
 		l.mat[i][i]=1;
 		for(long int k=i+1;k<n;k++) {
-			double sum;
+			double sum=0;
 			for(long int j=0;j<i;j++) {
 				sum += l.mat[k][j]*u.mat[j][i];
 			}
 			l.mat[k][i]=(mat[k][i]-sum)/u.mat[i][i];
+		}
+	}
+}
+
+template <class T>
+void Matrix<T>::luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const {
+	l.setAllElements(0);
+	u.setAllElements(0);
+
+	for(long int i=0;i<m;i++) {
+		for(long int j=0;j<=i;j++) {
+			double sum=0;
+			for(long int k=0;k<i;k++) {
+				sum+=l.mat[i][k]*u.mat[k][j];
+			}
+			l.mat[i][j] = mat[i][j]-sum;
+		}
+		u.mat[i][i]=1;
+		for(long int j=i+1;j<n;j++) {
+			double sum = 0;
+			for(long int k=0;k<i;k++) {
+				sum += l.mat[i][k]*u.mat[k][j];
+			}
+			u.mat[i][j] = (mat[i][j]-sum)/l.mat[i][i];
 		}
 	}
 }

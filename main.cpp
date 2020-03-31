@@ -9,6 +9,7 @@ void test1();
 void test2();
 void test3();
 void test4();
+void test5();
 void displayUsage(const char*);
 
 int main(int argc, char **argv) {
@@ -34,11 +35,48 @@ int main(int argc, char **argv) {
 	case 4:
 		test4();
 		break;
+	case 5:
+		test5();
+		break;
     default:
         displayUsage(argv[0]);
         return -1;
     }
     return 0;
+}
+
+void test5() {
+	Matrix<double> a;
+
+    bool verbose = true; /**make this to false to disable detailed output**/
+
+	string fname;
+    if(verbose)
+	    cout << "File containing a matrix should be as follows:\n<number of rows> <number of columns>\n<elements>\n(See example matrices testmat1.matrix and testmat2.matrix)\n";
+	
+	cout << "Enter file name where matrix is stored: ";
+	cin >> fname;
+	ifstream f1(fname);
+	f1 >> a;
+	f1.close();
+	if(verbose) {
+		cout << "The given matrix:\n";
+		cout << a;
+		cout << "Performing LU decomposition.\n";
+	}
+	Matrix<double> l(a.getRows(), a.getRows());
+	Matrix<double> u(a.getRows(), a.getRows());
+	cout << "A = LU\n";
+	cout << "Using doolittle's method.\n";
+	a.luDecompose_doolittle(l, u);
+	cout <<"Matrix L:\n"<< l;
+	cout <<"Matrix U:\n"<< u;
+	cout <<"LxU:\n"<< l*u;
+	cout << "Using crout's method.\n";
+	a.luDecompose_crout(l, u);
+	cout <<"Matrix L:\n"<< l;
+	cout <<"Matrix U:\n"<< u;
+	cout <<"LxU:\n"<< l*u;
 }
 
 void test4() {	
@@ -249,4 +287,5 @@ void displayUsage(const char *pname) {
     cout << "\t\t2: diagonally dominant and gaussian elimination\n";
 	cout << "\t\t3: gauss jacobi method\n";
 	cout << "\t\t4: gauss seidel root finding method and cholesky method for matrix decomposition\n";
+	cout << "\t\t5: doolittle's and crout's method for matrix decomposition\n";
 }
