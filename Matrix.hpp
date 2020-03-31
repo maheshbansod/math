@@ -185,8 +185,32 @@ public:
 	bool isDiagonallyDominant() const;
 
 	//matrix_functions
+	/**
+	 * @brief Perform LU Decomposition using Doolittle's method
+	 * 
+	 * @param[out] l The lower triangular matrix
+	 * @param[out] u The upper triangular matrix
+	 * 
+	 * @returns 1 if the decomposition was successful, 0 otherwise
+	 */
 	int luDecompose_doolittle(Matrix<T> &l, Matrix<T> &u) const;
+	/**
+	 * @brief Perform LU Decomposition using Crout's method
+	 * 
+	 * @param[out] l The lower triangular matrix
+	 * @param[out] u The upper triangular matrix
+	 * 
+	 * @returns 1 if the decomposition was successful, 0 otherwise
+	 */
 	int luDecompose_crout(Matrix<T> &l, Matrix<T> &u) const;
+	/**
+	 * @brief Perform LU Decomposition using Cholesky's method
+	 * 
+	 * @param[out] l The lower triangular matrix
+	 * @param[out] u The upper triangular matrix
+	 * 
+	 * @returns 1 if the decomposition was successful, 0 otherwise
+	 */
 	int luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const;
 	
 	Matrix<T> rowEchelon(bool verbose=false) const;
