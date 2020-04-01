@@ -12,6 +12,10 @@ private:
 public:
 	//matrix_base
 	//constructors
+	/**
+	 * @brief default constructor. Sets matrix to null and number of rows and columns to 0
+	 * 
+	*/
 	Matrix();
 	/**
 	 * @brief Takes a 2D array of type T and creates an mxn matrix with that data.
@@ -211,10 +215,41 @@ public:
 	 * @returns a matrix which is the result of multiplication of `this` and `m`
 	 */
 	Matrix<T> operator*(Matrix& m);
+	/**
+	 * @brief joins two matrices horizontally
+	 * 
+	 * @param m the rhs matrix operand
+	 * 
+	 * @returns a matrix which is obtained by joining the rhs matrix to the right of lhs matrix
+	 */
 	Matrix<T> joinMatrices(const Matrix& m) const;
+	/**
+	 * @brief attempts to make the matrix diagonally dominant
+	 * 
+	 * @param verbose shows detailed output if set to true
+	 * @param[out] b pointer to the matrix of constants which is also appropriately changed
+	 * 
+	 * @returns 1 if it was successful, -3 if the dimensions are not good, -1 if failed to make the matrix diagonally dominant
+	 */
 	int makeDiagonallyDominant(bool verbose=false, Matrix<T> *b=NULL);
+	/**
+	 * @brief checks if the matrix is identity matrix
+	 * 
+	 * @returns true if the matrix is identity matrix, false otherwise
+	*/
 	bool isIdentity() const;
+	/**
+	 * @brief checks if the matrix is symmetric
+	 * 
+	 * @returns true if the matrix is symmetric, false otherwise
+	 */
 	bool isSymmetric() const;
+	/**
+	 * 
+	 * @brief checks if the matrix is diagonally dominant
+	 * 
+	 * @returns true if the matrix is diagonally dominant, false otherwise
+	 */
 	bool isDiagonallyDominant() const;
 
 	//matrix_functions
@@ -246,10 +281,33 @@ public:
 	 */
 	int luDecompose_cholesky(Matrix<T> &l, Matrix<T> &u) const;
 	
+	/**
+	 * @brief performs Gaussian elimination
+	 * 
+	 * @param verbose shows detailed output if true
+	 * 
+	 * @returns a matrix which is row echelon form of `this`
+	 */
 	Matrix<T> rowEchelon(bool verbose=false) const;
-	void swapRow(long int, long int);
+	/**
+	 * @brief swaps two rows
+	 * 
+	 * @param x,y the row indices to swap. 
+	 * 
+	 */
+	void swapRow(long int x, long int y);
+	/**
+	 * @brief performs Gaussian elimination
+	 * 
+	 * @param verbose shows detailed output if true
+	 */
 	void toRowEchelon(bool verbose=false);
 	
+	/**
+	 * @brief Calculates the determinant of the matrix
+	 * 
+	 * @returns the determinant of the matrix
+	 */
 	T determinant() const;
 };
 #endif
