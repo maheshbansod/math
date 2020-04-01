@@ -173,12 +173,45 @@ public:
 	}
 
 	//matrix_basicoperations
-	Matrix<T> operator+(Matrix&);
-	Matrix<T> operator-(Matrix&);
-	Matrix<T> operator-(); //unary minus
-	Matrix<T> operator*(double); //const*mat
-	Matrix<T> operator*(Matrix&);
-	Matrix<T> joinMatrices(const Matrix&) const;
+	/**
+	 * @brief Overloaded addition operator to perform matrix addition
+	 * 
+	 * @param m The right hand side operand
+	 * 
+	 * @returns a matrix which is the result of addition of `this` and `m`
+	 */
+	Matrix<T> operator+(Matrix& m);
+	/**
+	 * @brief Overloaded minus operator to perform matrix subtraction
+	 * 
+	 * @param m The right hand side operand
+	 * 
+	 * @returns a matrix which is the result of subtraction of `this` and `m`
+	 */
+	Matrix<T> operator-(Matrix& m);
+	/**
+	 * @brief overload unary - operator performs unary minus/multiplies the matrix by -1
+	 * 
+	 * @returns a matrix which is -`this`
+	 */
+	Matrix<T> operator-();
+	/**
+	 * @brief Overloaded asterisk operator to perform matrix multiplication with a constant/matrix scaling
+	 * 
+	 * @param k A scalar - right hand side operand
+	 * 
+	 * @returns a matrix which is the result of scaling the matrix by `k`
+	 */
+	Matrix<T> operator*(double k); //const*mat
+	/**
+	 * @brief Overloaded asterisk operator to perform matrix multiplication
+	 * 
+	 * @param m The right hand side matrix operand
+	 * 
+	 * @returns a matrix which is the result of multiplication of `this` and `m`
+	 */
+	Matrix<T> operator*(Matrix& m);
+	Matrix<T> joinMatrices(const Matrix& m) const;
 	int makeDiagonallyDominant(bool verbose=false, Matrix<T> *b=NULL);
 	bool isIdentity() const;
 	bool isSymmetric() const;
