@@ -1,19 +1,70 @@
-CXX=g++
-CXXFLAGS= -Wall
+#Compiler and Linker
+CC          := g++
 
-main: main.o Matrix_base.o Matrix_basicoperations.o Matrix_functions.o
-	$(CXX) $(CXXFLAGS) -o main main.o Matrix_base.o Matrix_basicoperations.o Matrix_functions.o EquationSystem.o
+#The Target Binary Program
+TARGET      := main
 
-main.o: EquationSystem.o Matrix_base.o Matrix_basicoperations.o Matrix_functions.o Matrix.hpp
+#The Directories, Source, Includes, Objects, Binary and Resources
+SRCDIR      := src
+INCDIR      := inc
+BUILDDIR    := obj
+TARGETDIR   := .
+RESDIR      := res
+SRCEXT      := cpp
+DEPEXT      := d
+OBJEXT      := o
 
-EquationSystem.o: Matrix_functions.o Matrix_base.o EquationSystem.hpp
+#Flags, Libraries and Includes
+CFLAGS      := -Wall -O3 -g
+LIB         := 
+INC         := -I$(INCDIR) -I/usr/local/include
+INCDEP      := -I$(INCDIR)
 
-Matrix_basicoperations.o: Matrix_base.o Matrix.hpp
+#---------------------------------------------------------------------------------
+#DO NOT EDIT BELOW THIS LINE
+#---------------------------------------------------------------------------------
+SOURCES     := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 
-Matrix_functions.o: Matrix_base.o Matrix.hpp
+#Defauilt Make
+all: resources $(TARGET)
 
-Matrix_base.o: Matrix.hpp
+#Remake
+remake: cleaner all
 
-.PHONY: clean
+#Copy Resources from Resources Directory to Target Directory
+resources: directories
+	@cp $(RESDIR)/* $(TARGETDIR)/
+
+#Make the Directories
+directories:
+	@mkdir -p $(TARGETDIR)
+	@mkdir -p $(BUILDDIR)
+
+#Clean only Objecst
 clean:
-	rm -f *.o *.exe main a.out
+	@$(RM) -rf $(BUILDDIR)
+
+#Full Clean, Objects and Binaries
+cleaner: clean
+	@$(RM) -rf $(TARGETDIR)
+
+#Pull in dependency info for *existing* .o files
+-include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
+
+#Link
+$(TARGET): $(OBJECTS)
+	$(CC) -o $(TARGETDIR)/$(TARGET) $^ $(LIB)
+
+#Compile
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCDEP) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT)
+	@cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
+	@sed -e 's|.*:|$(BUILDDIR)/$*.$(OBJEXT):|' < $(BUILDDIR)/$*.$(DEPEXT).tmp > $(BUILDDIR)/$*.$(DEPEXT)
+	@sed -e 's/.*://' -e 's/\\$$//' < $(BUILDDIR)/$*.$(DEPEXT).tmp | fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $(BUILDDIR)/$*.$(DEPEXT)
+	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
+
+#Non-File Targets
+.PHONY: all remake clean cleaner resources
