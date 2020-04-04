@@ -2,6 +2,7 @@ main
 a.out
 .vscode/
 *.o
+*.d
 *.exe
 testdata/
 Doxyfile
