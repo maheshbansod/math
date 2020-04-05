@@ -14,7 +14,24 @@ double NumInt::trapezoidal(double a, double b, double f(double), int n) {
 }
 
 double NumInt::simpsons_onethird(double a, double b, double f(double), int n) {
-    ;
+    checkExceptions(a,b,n);
+    double dx = (b-a)/n,tdx=2*dx;
+    double x = a+dx;
+    double sumo = 0;
+    //sum of odd terms
+    while(x<b) {
+        sumo += f(x);
+        x+=tdx;
+    }
+    x = a+tdx;
+    double sume = 0;
+    //sum of even terms
+    while(x<b) {
+        sume += f(x);
+        x += tdx;
+    }
+    
+    return dx*(f(a)+f(b) +2*sume +4*sumo)/3;
 }
 
 void NumInt::checkExceptions(double a, double b, int n) {
