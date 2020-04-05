@@ -29,6 +29,18 @@ public:
      */
     static double simpsons_13(double a, double b, double f(double), int n=10);
 
+    /**
+     * @brief Uses Simpson's three eighth rule for numerical integration
+     * 
+     * @param a lower limit for integration
+     * @param b upper limit for integration
+     * @param f the function to integrate
+     * @param n (optional)the number of divisions of the area under the curve. accuracy depends on n.
+     * 
+     * @returns the definite integral of f on [a,b]
+     */
+    static double simpsons_38(double a, double b, double f(double), int n=10);
+    
 private:
     //disallow creating instances of this class
     NumInt() {}
