@@ -27,7 +27,7 @@ public:
      * 
      * @returns the definite integral of f on [a,b]
      */
-    static double simpsons_onethird(double a, double b, double f(double), int n=10);
+    static double simpsons_13(double a, double b, double f(double), int n=10);
 
 private:
     //disallow creating instances of this class

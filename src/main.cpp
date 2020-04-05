@@ -86,11 +86,10 @@ void test6() {
 	double (*meth)(double, double, double f(double), int) = 0; //the method to use
 
 	do {
-		cout << "The function f(x) is defined as \n"<<stringify(FX)<<endl;
 		cout << "Which method to use?\n1. Trapezoidal method\n2. Simpson's 1/3rd rule\n> ";
 		cin >> choice;
 		if(choice == 1) meth = NumInt::trapezoidal;
-		else if(choice == 2) meth = NumInt::simpsons_onethird;
+		else if(choice == 2) meth = NumInt::simpsons_13;
 		else cout << "Invalid choice. Try again.\n";
 	}while(choice <  0 || choice > 2);
 	do {

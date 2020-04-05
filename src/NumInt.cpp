@@ -12,7 +12,7 @@ double NumInt::trapezoidal(double a, double b, double f(double), int n) {
     return dx*(f(a)+f(b)+2*sum)/2;
 }
 
-double NumInt::simpsons_onethird(double a, double b, double f(double), int n) {
+double NumInt::simpsons_13(double a, double b, double f(double), int n) {
     checkExceptions(a,b,n);
     double dx = (b-a)/n,tdx=2*dx;
     double x = a+dx;
