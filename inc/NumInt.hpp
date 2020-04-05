@@ -32,5 +32,15 @@ public:
 private:
     //disallow creating instances of this class
     NumInt() {}
+
+    /**
+     * @brief checks for and throws common exceptions
+     * 
+     * @param a lower limit for integration
+     * @param b upper limit for integration
+     * @param n the number of divisions of the area under the curve. accuracy depends on n.
+     * 
+    */
+   static void checkExceptions(double a, double b, int n);
 };
 #endif

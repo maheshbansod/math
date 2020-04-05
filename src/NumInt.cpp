@@ -1,10 +1,8 @@
 #include "NumInt.hpp"
+#include <string.h>
 
 double NumInt::trapezoidal(double a, double b, double f(double), int n) {
-    if(n==0)
-        throw "NumInt::trapezoidal: `n=0`\n\t`n` is the number of divisions to make. `n` can't be 0";
-    if(a >= b)
-        throw "NumInt::trapezoidal: Lower limit can't be greater than or equal to upper limit.";
+    checkExceptions(a,b,n);
     double dx = (b-a)/n;
     double x = a+dx;
     double sum = 0;
@@ -17,4 +15,11 @@ double NumInt::trapezoidal(double a, double b, double f(double), int n) {
 
 double NumInt::simpsons_onethird(double a, double b, double f(double), int n) {
     ;
+}
+
+void NumInt::checkExceptions(double a, double b, int n) {
+    if(n==0)
+        throw ": `n=0`\n\t`n` is the number of divisions to make. `n` can't be 0";
+    if(a >= b)
+        throw ": Lower limit can't be greater than or equal to upper limit.";
 }
