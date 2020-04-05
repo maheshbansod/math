@@ -67,13 +67,14 @@ FX
 
 #define GX                 \
 double g(double x) {       \
-	return sqrt(1-x*x);    \
+	double s = sin(x);     \
+	return s*s;            \
 }
 GX
 
 #define PX                 \
 double p(double x) {       \
-	return sqrt(1-x*x);    \
+	return x;              \
 }
 PX
 
@@ -93,9 +94,9 @@ void test6() {
 		else cout << "Invalid choice. Try again.\n";
 	}while(choice <  0 || choice > 2);
 	do {
-		cout << "Which function to use?\nf(x): "<<stringify(FX)<<endl;
-		cout << "g(x): "<<stringify(GX)<<endl;
-		cout << "p(x): "<<stringify(PX)<<endl<<"> ";
+		cout << "Which function to use?\n1. f(x): "<<stringify(FX)<<endl;
+		cout << "2. g(x): "<<stringify(GX)<<endl;
+		cout << "3. p(x): "<<stringify(PX)<<endl<<"> ";
 		cin >> choice;
 		if(choice == 1) fun = f;
 		else if(choice == 2) fun = g;
