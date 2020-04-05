@@ -69,12 +69,15 @@ FX
 void test6() {
 
 	double a, b;
-	cout << "The function f(x) is\n"<<stringify(FX)<<endl;
+	cout << "The function f(x) is defined as \n"<<stringify(FX)<<endl;
 	cout << "Enter lower limit and upper limit\n";
 	cin >> a >> b;
 	double result = NumInt::trapezoidal(a,b, f );
 
-	cout << "Result: "<<result<<endl;
+	cout << "----------output----------\n";
+	cout << a<<endl;
+	cout << "\u222Bf(x)dx= "<<result<<endl;
+	cout << b << endl;
 }
 
 void test5() {
