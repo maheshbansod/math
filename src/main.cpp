@@ -1,7 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
+
 #include "Matrix.hpp"
 #include "EquationSystem.hpp"
+#include "NumInt.hpp"
+
+#define real_stringify(s) #s
+#define stringify(...) real_stringify(__VA_ARGS__)
 
 #ifndef VERBOSE
 #define VERBOSE false
@@ -14,6 +20,7 @@ void test2();
 void test3();
 void test4();
 void test5();
+void test6();
 void displayUsage(const char*);
 
 int main(int argc, char **argv) {
@@ -42,11 +49,32 @@ int main(int argc, char **argv) {
 	case 5:
 		test5();
 		break;
+	case 6:
+		test6();
+		break;
     default:
         displayUsage(argv[0]);
         return -1;
     }
     return 0;
+}
+
+#define FX            \
+double f(double x) {  \
+	double s = sin(x);\
+	return s*s;       \
+}
+FX
+
+void test6() {
+
+	double a, b;
+	cout << "The function f(x) is\n"<<stringify(FX)<<endl;
+	cout << "Enter lower limit and upper limit\n";
+	cin >> a >> b;
+	double result = NumInt::trapezoidal(a,b, f );
+
+	cout << "Result: "<<result<<endl;
 }
 
 void test5() {
