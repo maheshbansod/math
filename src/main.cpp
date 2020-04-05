@@ -86,12 +86,15 @@ void test6() {
 	double (*meth)(double, double, double f(double), int) = 0; //the method to use
 
 	do {
-		cout << "Which method to use?\n1. Trapezoidal method\n2. Simpson's 1/3rd rule\n> ";
+		cout << "Which method to use?\n1. Trapezoidal method\n";
+		cout << "2. Simpson's 1/3rd rule\n";
+		cout << "3. Simpson's 3/8th rule\n> ";
 		cin >> choice;
 		if(choice == 1) meth = NumInt::trapezoidal;
 		else if(choice == 2) meth = NumInt::simpsons_13;
+		else if(choice == 3) meth = NumInt::simpsons_38;
 		else cout << "Invalid choice. Try again.\n";
-	}while(choice <  0 || choice > 2);
+	}while(choice <  0 || choice > 3);
 	do {
 		cout << "Which function to use?\n1. f(x): "<<stringify(FX)<<endl;
 		cout << "2. g(x): "<<stringify(GX)<<endl;
@@ -369,5 +372,5 @@ void displayUsage(const char *pname) {
 	cout << "\t\t3: gauss jacobi method\n";
 	cout << "\t\t4: gauss seidel root finding method and cholesky method for matrix decomposition\n";
 	cout << "\t\t5: doolittle's and crout's method for matrix decomposition\n";
-	cout << "\t\t6: Trapezoidal method, Simpson's one third rule\n";
+	cout << "\t\t6: Trapezoidal method, Simpson's one third rule and Simpson's 3/8th rule\n";
 }
