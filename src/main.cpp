@@ -65,19 +65,55 @@ double f(double x) {       \
 }
 FX
 
+#define GX                 \
+double g(double x) {       \
+	return sqrt(1-x*x);    \
+}
+GX
+
+#define PX                 \
+double p(double x) {       \
+	return sqrt(1-x*x);    \
+}
+PX
+
 void test6() {
 
 	double a, b;
-	cout << "The function f(x) is defined as \n"<<stringify(FX)<<endl;
+	int choice, n;
+	double (*fun)(double) = 0; // the function to use
+	double (*meth)(double, double, double f(double), int) = 0; //the method to use
+
+	do {
+		cout << "The function f(x) is defined as \n"<<stringify(FX)<<endl;
+		cout << "Which method to use?\n1. Trapezoidal method\n2. Simpson's 1/3rd rule\n> ";
+		cin >> choice;
+		if(choice == 1) meth = NumInt::trapezoidal;
+		else if(choice == 2) meth = NumInt::simpsons_onethird;
+		else cout << "Invalid choice. Try again.\n";
+	}while(choice <  0 || choice > 2);
+	do {
+		cout << "Which function to use?\nf(x): "<<stringify(FX)<<endl;
+		cout << "g(x): "<<stringify(GX)<<endl;
+		cout << "p(x): "<<stringify(PX)<<endl<<"> ";
+		cin >> choice;
+		if(choice == 1) fun = f;
+		else if(choice == 2) fun = g;
+		else if(choice == 3) fun = p;
+		else cout << "Invalid choice. Try again.\n";
+	}while(choice < 0 || choice > 3);
 	cout << "Enter lower limit and upper limit\n";
 	cin >> a >> b;
+	cout << "Enter the number of samples\n";
+	cin >> n;
 	try {
-		double result = NumInt::trapezoidal(a,b, f,100 );
+		double result;
+		result = meth(a,b, fun, n );
 		cout << "----------output----------\n";
 		/**TODO: make superscript and subscript functions?**/
-		cout << a<<endl;
+		cout << b<<endl;
 		cout << "\u222Bf(x)dx= "<<result<<endl;
-		cout << b << endl;
+		cout << a << endl;
 	}catch(const char *msg) {
 		cout <<"Exception occurred: "<< msg << endl;
 	}
@@ -333,4 +369,5 @@ void displayUsage(const char *pname) {
 	cout << "\t\t3: gauss jacobi method\n";
 	cout << "\t\t4: gauss seidel root finding method and cholesky method for matrix decomposition\n";
 	cout << "\t\t5: doolittle's and crout's method for matrix decomposition\n";
+	cout << "\t\t6: Trapezoidal method, Simpson's one third rule\n";
 }

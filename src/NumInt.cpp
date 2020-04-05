@@ -1,5 +1,4 @@
 #include "NumInt.hpp"
-#include <string.h>
 
 double NumInt::trapezoidal(double a, double b, double f(double), int n) {
     checkExceptions(a,b,n);
