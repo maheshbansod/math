@@ -59,10 +59,9 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-#define FX            \
-double f(double x) {  \
-	double s = sin(x);\
-	return s*s;       \
+#define FX                 \
+double f(double x) {       \
+	return sqrt(1-x*x);    \
 }
 FX
 
@@ -72,9 +71,10 @@ void test6() {
 	cout << "The function f(x) is defined as \n"<<stringify(FX)<<endl;
 	cout << "Enter lower limit and upper limit\n";
 	cin >> a >> b;
-	double result = NumInt::trapezoidal(a,b, f );
+	double result = NumInt::trapezoidal(a,b, f,100 );
 
 	cout << "----------output----------\n";
+	/**TODO: make superscript and subscript functions?**/
 	cout << a<<endl;
 	cout << "\u222Bf(x)dx= "<<result<<endl;
 	cout << b << endl;
