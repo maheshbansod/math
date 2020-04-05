@@ -115,7 +115,7 @@ void test6() {
 		cout << "----------output----------\n";
 		/**TODO: make superscript and subscript functions?**/
 		cout << b<<endl;
-		cout << "\u222Bf(x)dx= "<<result<<endl;
+		cout << "\u222Bf(x)dx \u2248 "<<result<<endl;
 		cout << a << endl;
 	}catch(const char *msg) {
 		cout <<"Exception occurred: "<< msg << endl;
