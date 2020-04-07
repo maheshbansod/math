@@ -35,7 +35,7 @@ double NumInt::simpsons_13(double a, double b, double f(double), int n) {
 
 double NumInt::simpsons_38(double a, double b, double f(double), int n) {
     checkExceptions(a,b,n);
-    double dx = (b-a)/n, dx2 = 2*dx, dx3 = 3*dx;
+    double dx = (b-a)/n;
     double x = a+dx;
     int i=1;
     double sum1 = 0; //sum of terms not divisible by 3
