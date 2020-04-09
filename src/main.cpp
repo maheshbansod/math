@@ -95,28 +95,34 @@ void test6() {
 		else if(choice == 3) meth = NumInt::simpsons_38;
 		else cout << "Invalid choice. Try again.\n";
 	}while(choice <  0 || choice > 3);
+
 	do {
-		cout << "Which function to use?\n1. f(x): "<<stringify(FX)<<endl;
-		cout << "2. g(x): "<<stringify(GX)<<endl;
-		cout << "3. p(x): "<<stringify(PX)<<endl<<"> ";
+		cout << "Which function to use?\n1. y=f(x): "<<stringify(FX)<<endl;
+		cout << "2. y=g(x): "<<stringify(GX)<<endl;
+		cout << "3. y=p(x): "<<stringify(PX)<<endl<<"> ";
 		cin >> choice;
 		if(choice == 1) fun = f;
 		else if(choice == 2) fun = g;
 		else if(choice == 3) fun = p;
 		else cout << "Invalid choice. Try again.\n";
 	}while(choice < 0 || choice > 3);
+
 	cout << "Enter lower limit and upper limit\n";
 	cin >> a >> b;
+
 	cout << "Enter the number of samples\n";
 	cin >> n;
 	try {
+
 		double result;
 		result = meth(a,b, fun, n );
+
 		cout << "----------output----------\n";
 		/**TODO: make superscript and subscript functions?**/
 		cout << b<<endl;
-		cout << "\u222Bf(x)dx \u2248 "<<result<<endl;
+		cout << "\u222B y dx \u2248 "<<result<<endl;
 		cout << a << endl;
+
 	}catch(const char *msg) {
 		cout <<"Exception occurred: "<< msg << endl;
 	}
