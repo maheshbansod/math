@@ -33,6 +33,11 @@ all: $(TARGET)
 main: $(OBJECTS)
 	$(CC) -o $(TARGETDIR)/main $(OBJECTS)
 
+.PHONY: all clean
+clean:
+	rm -rf obj/
+	rm main
+
 #compiling
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(dir $@)
