@@ -15,4 +15,5 @@ Test 2: diagonally dominant and gaussian elimination
 Test 3: gauss jacobi method  
 Test 4: gauss seidel method and cholesky method  
 Test 5: doolittle's method and crout's method for matrix decomposition  
+Test 6: numerical integration methods - trapezoidal, simpson's 1/3rd rule, simpson's 3/8th rule
 
