@@ -369,6 +369,7 @@ void test1() {
 
 	cout << "is A identity? " << std::boolalpha << m.isIdentity() << endl;
 	cout << "is A symmetric? " << m.isSymmetric() << endl;
+	cout << "is A triangular? " << m.isTriangular() << endl;
 }
 
 void displayUsage(const char *pname) {
