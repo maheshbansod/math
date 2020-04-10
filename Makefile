@@ -9,6 +9,7 @@ SRCDIR      := src
 INCDIR      := inc
 BUILDDIR    := obj
 TARGETDIR   := .
+TTARGETDIR  := testbin
 RESDIR      := res
 SRCEXT      := cpp
 DEPEXT      := d
@@ -24,14 +25,18 @@ INCDEP      := -I$(INCDIR)
 #DO NOT EDIT BELOW THIS LINE
 #---------------------------------------------------------------------------------
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+OBJECTS     := $(filter-out $(BUILDDIR)/test%.o $(BUILDDIR)/main.o,$(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT))))
 
 #default make
 all: $(TARGET)
 
 #linking
-main: $(OBJECTS)
-	$(CC) -o $(TARGETDIR)/main $(OBJECTS)
+main: $(BUILDDIR)/main.o $(OBJECTS)
+	$(CC) -o $(TARGETDIR)/main $(BUILDDIR)/main.o $(OBJECTS)
+
+test1: $(BUILDDIR)/test/test1.o $(OBJECTS)
+	@mkdir -p $(TTARGETDIR)
+	$(CC) -o $(TTARGETDIR)/$@ $(BUILDDIR)/test/test1.o $(OBJECTS)
 
 .PHONY: all clean
 clean:
@@ -40,5 +45,9 @@ clean:
 
 #compiling
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+$(BUILDDIR)/test/%.$(OBJEXT): $(SRCDIR)/test/%.$(SRCEXT)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
