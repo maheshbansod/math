@@ -310,7 +310,7 @@ public:
 	void toRowEchelon(bool verbose=false);
 	
 	/**
-	 * @brief Calculates the determinant of the matrix
+	 * @brief Calculates the determinant of a square matrix using LU decomposition
 	 * 
 	 * @returns the determinant of the matrix
 	 */

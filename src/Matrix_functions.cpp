@@ -143,22 +143,34 @@ void Matrix<T>::toRowEchelon(bool verbose) {
 
 template <class T>
 T Matrix<T>::determinant() const {
-	/**Change code later for determining determinant for matrix size n **/
+	/** Finds determinant for square matrix of size 'n' using LU decomposition **/
 	if(m == 0) {
 		//throw exception
 		std::cout << "empty matrix.\n";
 		return -1;
 	}
-	if(m != n || n>3) {
+	if(m != n) {
 		//throw Exception
 		std::cout << "Check matrix dimensions. Can't find determinant of a non square matrix.\n";
 		return -1;
 	}
-	if(n==1) return mat[0][0];
-	else if(n==2) return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
-	else return  mat[0][0]*(mat[1][1]*mat[2][2]-mat[1][2]*mat[2][1])
-							-mat[0][1]*(mat[1][0]*mat[2][2]-mat[1][2]*mat[0][2])
-							+mat[0][2]*(mat[1][0]*mat[2][1]-mat[1][1]*mat[2][0]);
+
+	double prod = 1;
+	if(isTriangular()) { //then product of diagonal is determinant
+		for(long int i=0;i<n;i++) {
+			prod *= mat[i][i];
+		}
+		return prod;
+	}
+
+	Matrix l(m,m),u(m,m);
+	if(luDecompose_doolittle(l,u) || luDecompose_crout(l,u)) {
+		return l.determinant()*u.determinant();
+	} else {
+		//throw Exception
+		std::cout << "Couldn't perform LU decomposition. Can't find the determinant.\n";
+		return -1;
+	}
 }
 
 template class Matrix<int>;
