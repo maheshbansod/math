@@ -104,6 +104,29 @@ bool Matrix<T>::isSymmetric() const {
 }
 
 template <class T>
+bool Matrix<T>::isTriangular() const {
+	if(m != n) return false;
+	if(n == 1) return true;
+	
+	bool f = true;
+	/*checks lower triangular*/
+	for(long int i=0;i<n;i++)
+		for(long int j=i+1;j<n;j++)
+			if(mat[i][j] != 0) {
+				f = false;
+				break;
+			}
+	if(f) return true; //return true if lower triangular
+	/*checks upper triangular*/
+	for(long int i=0;i<n;i++)
+		for(long int j=0;j<i;j++)
+			if(mat[i][j] != 0) {
+				return false; //return false if not even upper triangular
+			}
+	return true; //return true if upper triangular
+}
+
+template <class T>
 bool Matrix<T>::isDiagonallyDominant() const {
 
 	//this sees only the mxm part of the matrix

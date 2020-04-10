@@ -245,6 +245,12 @@ public:
 	 */
 	bool isSymmetric() const;
 	/**
+	 * @brief checks if matrix is triangular(upper or lower)
+	 * 
+	 * @returns true if the matrix is triangular, false otherwise
+	 */
+	bool isTriangular() const;
+	/**
 	 * 
 	 * @brief checks if the matrix is diagonally dominant
 	 * 
